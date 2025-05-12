@@ -63,7 +63,7 @@ export default function Hero() {
           <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student & Builder</span>')
+                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student and Builder</span>')
                 .callFunction(() => {
                   document.querySelector(".second-typewriter")?.classList.remove("hidden")
                 })
