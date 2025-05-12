@@ -121,7 +121,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex justify-center gap-4"
         >
-          <Link href="https://linkedin.com/in/daniel" target="_blank" rel="noopener noreferrer">
+          <Link href="www.linkedin.com/in/daniel-dzurevych-bbb448274" target="_blank" rel="noopener noreferrer">
             <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
