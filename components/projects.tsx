@@ -21,26 +21,30 @@ export default function Projects() {
       title: "$10,000 Hackathon Winner",
       description:
         "Built a chrome extension connected to Vertex AI that automatically creates company templated dynamic tutorials from FIGMA designs, personalized based on account information.",
-      icon: <Trophy className="h-8 w-8" />,
+        icon: <Trophy className="h-8 w-8 text-yellow-500" />,
+      
       skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "FIGMA"],
-      iconBg: "bg-gray-100 dark:bg-gray-800",
+      // iconBg: "bg-gray-100 dark:bg-gray-800",
+      iconColor: "text-yellow-500",
+      iconBg: "bg-yellow-500/10",
     },
     {
       id: "cpp-data-analysis",
       title: "C++ Data Analysis Tool",
       description:
         "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
-      icon: <Database className="h-8 w-8" />,
-      skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
-      iconBg: "bg-gray-100 dark:bg-gray-800",
+        icon: <Database className="h-8 w-8 text-emerald-500" />,
+        skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
+        iconColor: "text-emerald-500",
+        iconBg: "bg-emerald-500/10",
     },
     {
       id: "morse-code",
       title: "Morse Code Device",
-      description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
-      icon: <Code className="h-8 w-8" />,
+      icon: <Code className="h-8 w-8 text-purple-500" />,
       skills: ["RISC-V", "Microprocessor", "Hardware"],
-      iconBg: "bg-gray-100 dark:bg-gray-800",
+      iconColor: "text-purple-500",
+      iconBg: "bg-purple-500/10",
     },
     {
       id: "ph-sensing",
