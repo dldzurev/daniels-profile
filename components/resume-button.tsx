@@ -9,7 +9,7 @@ export default function ResumeButton() {
     const link = document.createElement("a")
 
     // Set the href to the resume file
-    link.href = "/resume.pdf"
+    link.href = "Daniels Intern 2025 Resume.pdf"
 
     // Set the download attribute to suggest a filename
     link.download = "Daniel_Dzurevych_Resume.pdf"

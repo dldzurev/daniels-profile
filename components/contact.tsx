@@ -131,7 +131,8 @@ export default function Contact() {
                     <div>
                       <p className="text-sm text-muted-foreground">LinkedIn</p>
                       <Link
-                        href="https://linkedin.com/in/daniel"
+                        href="https://linkedin.com/in/daniel-dzurevych-bbb448274"
+                       
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-medium hover:text-primary transition-colors"

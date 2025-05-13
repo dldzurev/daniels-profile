@@ -122,7 +122,7 @@ export default function Hero() {
           className="flex justify-center gap-4"
         >
           <div className="flex items-center justify-center">
-            <Link href="https://linkedin.com/in/daniel" target="_blank" rel="noopener noreferrer">
+            <Link href="https://linkedin.com/in/daniel-dzurevych-bbb448274" target="_blank" rel="noopener noreferrer">
               <div className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
