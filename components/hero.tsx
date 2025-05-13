@@ -63,7 +63,7 @@ export default function Hero() {
           <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student</span>')
+                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student &amp Builder</span>')
                 .callFunction(() => {
                   document.querySelector(".second-typewriter")?.classList.remove("hidden")
                 })
@@ -82,7 +82,7 @@ export default function Hero() {
             onInit={(typewriter) => {
               typewriter
                 .typeString(
-                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building innovative solutions with AI and software engineering</span>',
+                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building solutions to real problems with AI</span>',
                 )
                 .callFunction(() => {
                   document.querySelector(".buttons-container")?.classList.remove("opacity-0")
