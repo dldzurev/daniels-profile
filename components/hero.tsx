@@ -131,7 +131,7 @@ export default function Hero() {
           </div>
 
           <div className="flex items-center justify-center">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/dldzurev" target="_blank" rel="noopener noreferrer">
               <div className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
