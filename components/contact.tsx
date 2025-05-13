@@ -137,7 +137,7 @@ export default function Contact() {
                         rel="noopener noreferrer"
                         className="font-medium hover:text-primary transition-colors"
                       >
-                        linkedin.com/in/daniel
+                        linkedin.com
                       </Link>
                     </div>
                   </div>
