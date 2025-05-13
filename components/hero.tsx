@@ -54,7 +54,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold mb-4"
+          className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4"
         >
           Daniel Dzurevych
         </motion.h1>
@@ -63,7 +63,7 @@ export default function Hero() {
           <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student and Builder</span>')
+                .typeString('<span class="text-2xl md:text-3xl font-medium">Computer Engineering Student</span>')
                 .callFunction(() => {
                   document.querySelector(".second-typewriter")?.classList.remove("hidden")
                 })
@@ -82,7 +82,7 @@ export default function Hero() {
             onInit={(typewriter) => {
               typewriter
                 .typeString(
-                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building innovative software solutions that solve real problems with AI</span>',
+                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building innovative solutions with AI and software engineering</span>',
                 )
                 .callFunction(() => {
                   document.querySelector(".buttons-container")?.classList.remove("opacity-0")
@@ -101,7 +101,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 mb-12 buttons-container opacity-0"
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 buttons-container opacity-0"
         >
           <Button size="lg" className="rounded-full gap-2" onClick={() => scrollToSection("contact")}>
             <Mail className="h-4 w-4" />
@@ -121,29 +121,37 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex justify-center gap-4"
         >
-          <Link href="www.linkedin.com/in/daniel-dzurevych-bbb448274" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-              <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
-            </Button>
-          </Link>
-          <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-              <Github className="h-5 w-5" />
-              <span className="sr-only">GitHub</span>
-            </Button>
-          </Link>
-          <Link href="mailto:dldzurev@uwaterloo.ca">
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-              <Mail className="h-5 w-5" />
-              <span className="sr-only">Email</span>
-            </Button>
-          </Link>
+          <div className="flex items-center justify-center">
+            <Link href="https://linkedin.com/in/daniel" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </div>
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center">
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub</span>
+              </div>
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <Link href="mailto:dldzurev@uwaterloo.ca">
+              <div className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center">
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Email</span>
+              </div>
+            </Link>
+          </div>
         </motion.div>
       </motion.div>
 
       <div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+        className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce cursor-pointer"
         onClick={() => scrollToSection("experience")}
       >
         <Button variant="ghost" size="icon" className="rounded-full">

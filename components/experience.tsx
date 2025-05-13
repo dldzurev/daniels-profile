@@ -82,8 +82,8 @@ export default function Experience() {
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <motion.div key={index} variants={itemVariants} className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-64 md:sticky md:top-20 md:self-start text-center md:text-left">
+              <motion.div key={index} variants={itemVariants} className="flex flex-col md:flex-row gap-4 md:gap-8">
+                <div className="md:w-64 md:sticky md:top-20 md:self-start text-center md:text-left mb-4 md:mb-0">
                   <div className="text-gray-600 dark:text-gray-400">{exp.period}</div>
                   <div className="text-gray-600 dark:text-gray-400">{exp.location}</div>
                 </div>

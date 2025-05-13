@@ -101,7 +101,7 @@ export default function Contact() {
             Get In Touch
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <motion.div variants={itemVariants}>
               <Card className="h-full overflow-hidden border-none shadow-lg bg-background rounded-2xl">
                 <CardHeader>
@@ -131,7 +131,7 @@ export default function Contact() {
                     <div>
                       <p className="text-sm text-muted-foreground">LinkedIn</p>
                       <Link
-                        href="www.linkedin.com/in/daniel-dzurevych-bbb448274"
+                        href="https://linkedin.com/in/daniel"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-medium hover:text-primary transition-colors"

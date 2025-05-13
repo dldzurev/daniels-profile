@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Github } from "lucide-react"
 import Link from "next/link"
+import VideoPlayer from "@/components/video-player"
+import { motion } from "framer-motion"
 
 export default function ProjectDetail() {
   const params = useParams()
@@ -26,6 +28,7 @@ export default function ProjectDetail() {
         iconColor: "text-yellow-500",
         iconBg: "bg-yellow-500/10",
         githubUrl: "https://github.com",
+        videoUrl: "/videos/hackathon-demo.mp4",
         detailedDescription: `
           Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
           company-templated tutorials from FIGMA designs. The extension analyzes design elements and creates 
@@ -46,6 +49,7 @@ export default function ProjectDetail() {
         iconColor: "text-emerald-500",
         iconBg: "bg-emerald-500/10",
         githubUrl: "https://github.com",
+        videoUrl: "/videos/cpp-tool-demo.mp4",
         detailedDescription: `
           Developed a high-performance data analysis tool in C++ that efficiently processes large CSV datasets. 
           The tool parses CSV rows, constructs a graph representation of the data, and implements a hash-based 
@@ -64,6 +68,7 @@ export default function ProjectDetail() {
         iconColor: "text-purple-500",
         iconBg: "bg-purple-500/10",
         githubUrl: "https://github.com",
+        videoUrl: "/videos/morse-code-demo.mp4",
         detailedDescription: `
           Designed and built a text-to-morse code converter device using a RISC-V microprocessor. The device 
           takes text input and translates it into morse code, which is then visually displayed through an LED.
@@ -82,6 +87,7 @@ export default function ProjectDetail() {
         iconColor: "text-blue-500",
         iconBg: "bg-blue-500/10",
         githubUrl: "https://github.com",
+        videoUrl: "/videos/ph-sensing-demo.mp4",
         detailedDescription: `
           Designed, constructed, and programmed a pH irregularity sensing device using an STM32 microcontroller 
           programmed in C. The device accurately measures and monitors pH levels, alerting users when readings 
@@ -101,6 +107,7 @@ export default function ProjectDetail() {
         iconColor: "text-pink-500",
         iconBg: "bg-pink-500/10",
         githubUrl: "https://github.com",
+        videoUrl: "/videos/qr-code-demo.mp4",
         detailedDescription: `
           Developed a streamlined application system for Chandos that utilized QR codes to direct applicants to 
           a custom-built form submission website. The system automatically populated a spreadsheet with applicant 
@@ -138,49 +145,55 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container px-4 max-w-4xl mx-auto">
+    <div className="min-h-screen py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="container px-4 sm:px-6 max-w-4xl mx-auto">
         <Button variant="ghost" className="mb-6" onClick={() => router.push("/#projects")}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
         </Button>
 
-        <Card className="border-none shadow-lg bg-background rounded-2xl overflow-hidden">
-          <CardHeader className={`${project.iconBg} bg-opacity-30`}>
-            <CardTitle className="text-3xl font-bold text-center">{project.title}</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Overview</h3>
-                <p className="text-muted-foreground">{project.description}</p>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <Card className="border-none shadow-lg bg-white dark:bg-gray-800 rounded-2xl overflow-hidden mb-8">
+            <CardHeader className={`${project.iconBg} bg-opacity-30`}>
+              <CardTitle className="text-3xl font-bold text-center">{project.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="mb-8">
+                <VideoPlayer src={project.videoUrl} />
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Details</h3>
-                <p className="text-muted-foreground whitespace-pre-line">{project.detailedDescription}</p>
-              </div>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Overview</h3>
+                  <p className="text-muted-foreground">{project.description}</p>
+                </div>
 
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.skills.map((skill) => (
-                    <Badge key={skill} className="rounded-full px-3 py-1">
-                      {skill}
-                    </Badge>
-                  ))}
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Details</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">{project.detailedDescription}</p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skills.map((skill) => (
+                      <Badge key={skill} className="rounded-full px-3 py-1">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full sm:w-auto gap-2">
+                      <Github className="h-4 w-4" /> View Code on GitHub
+                    </Button>
+                  </Link>
                 </div>
               </div>
-
-              <div className="pt-4">
-                <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full sm:w-auto gap-2">
-                    <Github className="h-4 w-4" /> View Code on GitHub
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </div>
   )

@@ -54,7 +54,7 @@ export default function StatsBanner() {
           variants={containerVariants}
           className="max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {stats.map((stat, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <Card className="border border-muted/20 shadow-sm bg-background rounded-2xl overflow-hidden hover:shadow-md transition-all">

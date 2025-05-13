@@ -21,48 +21,49 @@ export default function Projects() {
       title: "$10,000 Hackathon Winner",
       description:
         "Built a chrome extension connected to Vertex AI that automatically creates company templated dynamic tutorials from FIGMA designs, personalized based on account information.",
-        icon: <Trophy className="h-8 w-8 text-yellow-500" />,
-      
+      icon: <Trophy className="h-8 w-8 text-yellow-500" />,
       skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "FIGMA"],
-      // iconBg: "bg-gray-100 dark:bg-gray-800",
-      iconColor: "text-yellow-500",
       iconBg: "bg-yellow-500/10",
+      videoUrl: "/videos/hackathon-demo.mp4",
     },
     {
       id: "cpp-data-analysis",
       title: "C++ Data Analysis Tool",
       description:
         "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
-        icon: <Database className="h-8 w-8 text-emerald-500" />,
-        skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
-        iconColor: "text-emerald-500",
-        iconBg: "bg-emerald-500/10",
+      icon: <Database className="h-8 w-8 text-emerald-500" />,
+      skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
+      iconBg: "bg-emerald-500/10",
+      videoUrl: "/videos/cpp-tool-demo.mp4",
     },
     {
       id: "morse-code",
       title: "Morse Code Device",
+      description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
       icon: <Code className="h-8 w-8 text-purple-500" />,
       skills: ["RISC-V", "Microprocessor", "Hardware"],
-      iconColor: "text-purple-500",
       iconBg: "bg-purple-500/10",
+      videoUrl: "/videos/morse-code-demo.mp4",
     },
     {
       id: "ph-sensing",
       title: "pH Sensing Device",
       description:
         "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
-      icon: <Code className="h-8 w-8" />,
+      icon: <Code className="h-8 w-8 text-blue-500" />,
       skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
-      iconBg: "bg-gray-100 dark:bg-gray-800",
+      iconBg: "bg-blue-500/10",
+      videoUrl: "/videos/ph-sensing-demo.mp4",
     },
     {
       id: "qr-code",
       title: "QR Code Application System",
       description:
         "Created a QR code connected to a form submission website that automatically populated a spreadsheet to optimize application process at career fairs for previous employer (Chandos).",
-      icon: <Code className="h-8 w-8" />,
+      icon: <Code className="h-8 w-8 text-pink-500" />,
       skills: ["Web Development", "QR Code", "Form Submission", "Spreadsheet Automation"],
-      iconBg: "bg-gray-100 dark:bg-gray-800",
+      iconBg: "bg-pink-500/10",
+      videoUrl: "/videos/qr-code-demo.mp4",
     },
   ]
 
@@ -99,7 +100,7 @@ export default function Projects() {
             Projects & Achievements
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {projects.map((project, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <Card

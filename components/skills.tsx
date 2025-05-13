@@ -122,7 +122,7 @@ export default function Skills() {
                   </TabsList>
 
                   <TabsContent value="programming" className="mt-0">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                       {programmingSkills.map((skill) => (
                         <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
                           <span className="font-medium mb-2">{skill.name}</span>
@@ -136,7 +136,7 @@ export default function Skills() {
                   </TabsContent>
 
                   <TabsContent value="technologies" className="mt-0">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                       {technologiesSkills.map((skill) => (
                         <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
                           <span className="font-medium mb-2">{skill.name}</span>
@@ -150,7 +150,7 @@ export default function Skills() {
                   </TabsContent>
 
                   <TabsContent value="soft" className="mt-0">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                       {softSkills.map((skill) => (
                         <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
                           <span className="font-medium mb-2">{skill.name}</span>
