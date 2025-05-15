@@ -24,8 +24,9 @@ export default function Experience() {
         "Improved call transcription accuracy by 15% for the Customer Experience team by helping automate a transcript parser and analyzing trends using BigQuery, enhancing insights while maintaining security of sensitive data",
         "Modeled company-wide statistics (Jupyter Notebooks) & delivered data-driven reports to executives",
       ],
-      skills: ["Python", "JavaScript", "C++", "AI/ML", "Vertex AI", "BigQuery", "Pandas", "Scikit-learn", "Deepeval"],
-    },
+      skills: ["Python", "JavaScript", "C++", "AI/ML", "Vertex AI", "AI Guardrails" , "BigQuery", "Pandas", "Scikit-learn", "Deepeval" , "Microservices" , "Finance" , "LLM-Ops" , "Prompt" , "Langraph" , "AUtomated/Unit Testing" , "Compliance/Data Security"],
+    },                                           
+                           
     {
       title: "Project Coordinator",
       company: "Chandos",
