@@ -37,7 +37,7 @@ export default function Experience() {
         "Honed my problem solving skills by planning and implementing solutions to unique interpersonal and random variable challenges resulting in greater efficiency",
         "Prepared and tendered contracts/documents and SOW's, prepared estimates, created closeouts (2000+ page document) under tight deadlines and created company wide software tutorials, improving internal training and onboarding efficiency",
       ],
-      skills: ["Project Management", "Problem Solving", "Documentation", "Contract Preparation", "Training"],
+      skills: ["Project Management", "Problem Solving", "Documentation", "Contract Preparation", "Training", "Communication", "Financial Estimates", "Optomization"],
     },
     {
       title: "Coding Teacher/Developer",
@@ -48,7 +48,7 @@ export default function Experience() {
         "Founded initiative that teaches grade school and high school students basic programming using simple projects and educational games I created (HTML, CSS, Python, and Pygame)",
         "Proactively promoted my initiative across TCDSB, leading to 9 successful workshops with 150+ attendees",
       ],
-      skills: ["HTML", "CSS", "Python", "Pygame", "Teaching", "Workshop Facilitation"],
+      skills: ["HTML", "CSS", "Python", "Pygame", "Teaching", "Workshop Facilitation", "Presenting", "Leadership"],
     },
   ]
 
