@@ -85,7 +85,9 @@ export default function ProjectDetail() {
           "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
         skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
         iconColor: "text-blue-500",
+
         iconBg: "bg-blue-500/10",
+        docsUrl:"/Customer Definition_ (1).pdf",
 
         detailedDescription: `
           Designed, constructed, and programmed a pH irregularity sensing device using an STM32 microcontroller 
@@ -187,14 +189,24 @@ export default function ProjectDetail() {
                     ))}
                   </div>
                 </div>
-
+                
+               
                 <div className="pt-4">
-                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full sm:w-auto gap-2">
-                      <Github className="h-4 w-4" /> View Code on GitHub
-                    </Button>
-                  </Link>
-                </div>
+    {project.docsUrl ? (
+      <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
+        <Button className="w-full sm:w-auto">
+          Project Docs
+        </Button>
+      </Link>
+    ) : (
+      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+        <Button className="w-full sm:w-auto gap-2">
+          <Github className="h-4 w-4" /> View Code on GitHub
+        </Button>
+      </Link>
+    )}
+  </div>
+
               </div>
             </CardContent>
           </Card>
