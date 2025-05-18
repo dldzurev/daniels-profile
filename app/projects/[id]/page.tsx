@@ -45,10 +45,10 @@ export default function ProjectDetail() {
         title: "C++ Data Analysis Tool",
         description:
           "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
-        skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
+        skills: ["C++", "Data Analysis", "Object Oriented Programming", "Algorithms", "Runtime Optomization"],
         iconColor: "text-emerald-500",
         iconBg: "bg-emerald-500/10",
-        githubUrl: "https://github.com",
+        //githubUrl: "https://github.com",
         videoUrl: "/Screenshot 2025-05-18 174344.png",
         detailedDescription: `
           Developed a high-performance data analysis tool in C++ that efficiently processes large CSV datasets. 
@@ -64,10 +64,10 @@ export default function ProjectDetail() {
         id: "morse-code",
         title: "Morse Code Device",
         description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
-        skills: ["RISC-V", "Microprocessor", "Hardware"],
+        skills: ["RISC-V", "Microprocessor", "Hardware", "Assembly", "Embeded Systems"],
         iconColor: "text-purple-500",
         iconBg: "bg-purple-500/10",
-        githubUrl: "https://github.com",
+        //githubUrl: "https://github.com",
         videoUrl: "/Image.jpeg",
         detailedDescription: `
           Designed and built a text-to-morse code converter device using a RISC-V microprocessor. The device 
@@ -83,7 +83,7 @@ export default function ProjectDetail() {
         title: "pH Sensing Device",
         description:
           "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
-        skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
+        skills: ["C", "STM32", "Microcontroller", "Hardware Design", "Low Level Programming"],
         iconColor: "text-blue-500",
         iconBg: "bg-blue-500/10",
         //githubUrl: "",
