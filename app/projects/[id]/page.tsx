@@ -28,7 +28,7 @@ export default function ProjectDetail() {
         iconColor: "text-yellow-500",
         iconBg: "bg-yellow-500/10",
         githubUrl: "https://github.com",
-        videoUrl: "/DSC_1061.JPG", // <-- changed to include leading slash
+        videoUrl: "/DSC_1061.JPG",
         detailedDescription: `
           Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
           company-templated tutorials from FIGMA designs. The extension analyzes design elements and creates 
@@ -85,11 +85,10 @@ export default function ProjectDetail() {
           "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
         skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
         iconColor: "text-blue-500",
-        //githubUrl:"",
-        //videoUrl:"",
         iconBg: "bg-blue-500/10",
-        docsUrl:"/Customer Definition_ (1).pdf",
-
+        //githubUrl: "",
+        //videoUrl: "",
+        docsUrl: "/Customer Definition_ (1).pdf",
         detailedDescription: `
           Designed, constructed, and programmed a pH irregularity sensing device using an STM32 microcontroller 
           programmed in C. The device accurately measures and monitors pH levels, alerting users when readings 
@@ -108,9 +107,8 @@ export default function ProjectDetail() {
         skills: ["Web Development", "QR Code", "Form Submission", "Spreadsheet Automation"],
         iconColor: "text-pink-500",
         iconBg: "bg-pink-500/10",
-        
-        //githubUrl:"",
-        //videoUrl:"",
+        //githubUrl: "",
+        //videoUrl: "",
         detailedDescription: `
           Developed a streamlined application system for Chandos that utilized QR codes to direct applicants to 
           a custom-built form submission website. The system automatically populated a spreadsheet with applicant 
@@ -160,38 +158,60 @@ export default function ProjectDetail() {
               <CardTitle className="text-3xl font-bold text-center">{project.title}</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
-              {/* media: hide for ph-sensing & qr-code */}
-<div className="mb-8">
-  {!["ph-sensing", "qr-code"].includes(project.id) && (
-    project.videoUrl.endsWith(".mp4")
-      ? <VideoPlayer src={project.videoUrl} />
-      : (
-        <img
-          src={project.videoUrl}
-          alt={project.title}
-          className="block mx-auto w-3/4 h-auto rounded-lg"
-        />
-      )
-  )}
-</div>
+              {/* only render media if videoUrl is defined */}
+              {project.videoUrl && (
+                <div className="mb-8">
+                  {project.videoUrl.endsWith(".mp4") ? (
+                    <VideoPlayer src={project.videoUrl} />
+                  ) : (
+                    <img
+                      src={project.videoUrl}
+                      alt={project.title}
+                      className="block mx-auto w-3/4 h-auto rounded-lg"
+                    />
+                  )}
+                </div>
+              )}
 
-{/* button: hide for ph-sensing & qr-code */}
-<div className="pt-4">
-  {!["ph-sensing", "qr-code"].includes(project.id) && (
-    project.docsUrl ? (
-      <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
-        <Button className="w-full sm:w-auto">Project Docs</Button>
-      </Link>
-    ) : (
-      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-        <Button className="w-full sm:w-auto gap-2">
-          <Github className="h-4 w-4" /> View Code on GitHub
-        </Button>
-      </Link>
-    )
-  )}
-</div>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Overview</h3>
+                  <p className="text-muted-foreground">{project.description}</p>
+                </div>
 
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Details</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">{project.detailedDescription}</p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skills.map((skill) => (
+                      <Badge key={skill} className="rounded-full px-3 py-1">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* only render a button if there's a GitHub or Docs URL */}
+              {(project.githubUrl || project.docsUrl) && (
+                <div className="pt-4">
+                  {project.docsUrl ? (
+                    <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full sm:w-auto">Project Docs</Button>
+                    </Link>
+                  ) : (
+                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full sm:w-auto gap-2">
+                        <Github className="h-4 w-4" /> View Code on GitHub
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
         </motion.div>
