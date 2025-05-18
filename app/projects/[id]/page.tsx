@@ -85,8 +85,8 @@ export default function ProjectDetail() {
           "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
         skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
         iconColor: "text-blue-500",
-        githubUrl:"",
-        videoUrl:"",
+        //githubUrl:"",
+        //videoUrl:"",
         iconBg: "bg-blue-500/10",
         docsUrl:"/Customer Definition_ (1).pdf",
 
@@ -109,8 +109,8 @@ export default function ProjectDetail() {
         iconColor: "text-pink-500",
         iconBg: "bg-pink-500/10",
         
-        githubUrl:"",
-        videoUrl:"",
+        //githubUrl:"",
+        //videoUrl:"",
         detailedDescription: `
           Developed a streamlined application system for Chandos that utilized QR codes to direct applicants to 
           a custom-built form submission website. The system automatically populated a spreadsheet with applicant 
