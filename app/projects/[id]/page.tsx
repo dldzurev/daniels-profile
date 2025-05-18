@@ -49,7 +49,7 @@ export default function ProjectDetail() {
         iconColor: "text-emerald-500",
         iconBg: "bg-emerald-500/10",
         githubUrl: "https://github.com",
-        videoUrl: "/Image.jpeg",
+        videoUrl: "/Screenshot 2025-05-18 174344.png",
         detailedDescription: `
           Developed a high-performance data analysis tool in C++ that efficiently processes large CSV datasets. 
           The tool parses CSV rows, constructs a graph representation of the data, and implements a hash-based 
@@ -68,7 +68,7 @@ export default function ProjectDetail() {
         iconColor: "text-purple-500",
         iconBg: "bg-purple-500/10",
         githubUrl: "https://github.com",
-        videoUrl: "/videos/morse-code-demo.mp4",
+        videoUrl: "/Image.jpeg",
         detailedDescription: `
           Designed and built a text-to-morse code converter device using a RISC-V microprocessor. The device 
           takes text input and translates it into morse code, which is then visually displayed through an LED.
@@ -86,8 +86,7 @@ export default function ProjectDetail() {
         skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
         iconColor: "text-blue-500",
         iconBg: "bg-blue-500/10",
-        githubUrl: "https://github.com",
-        videoUrl: "/videos/ph-sensing-demo.mp4",
+
         detailedDescription: `
           Designed, constructed, and programmed a pH irregularity sensing device using an STM32 microcontroller 
           programmed in C. The device accurately measures and monitors pH levels, alerting users when readings 
@@ -106,8 +105,6 @@ export default function ProjectDetail() {
         skills: ["Web Development", "QR Code", "Form Submission", "Spreadsheet Automation"],
         iconColor: "text-pink-500",
         iconBg: "bg-pink-500/10",
-        githubUrl: "https://github.com",
-        videoUrl: "/videos/qr-code-demo.mp4",
         detailedDescription: `
           Developed a streamlined application system for Chandos that utilized QR codes to direct applicants to 
           a custom-built form submission website. The system automatically populated a spreadsheet with applicant 
