@@ -49,7 +49,7 @@ export default function ProjectDetail() {
         iconColor: "text-emerald-500",
         iconBg: "bg-emerald-500/10",
         githubUrl: "https://github.com",
-        videoUrl: "/videos/cpp-tool-demo.mp4",
+        videoUrl: "/Image.jpeg",
         detailedDescription: `
           Developed a high-performance data analysis tool in C++ that efficiently processes large CSV datasets. 
           The tool parses CSV rows, constructs a graph representation of the data, and implements a hash-based 
@@ -164,7 +164,7 @@ export default function ProjectDetail() {
                   <img
                     src={project.videoUrl}
                     alt={project.title}
-                    className="w-full h-auto rounded-lg"
+                    className="block mx-auto w-3/4 h-auto rounded-lg"
                   />
                 )}
               </div>
