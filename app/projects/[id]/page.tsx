@@ -1,6 +1,5 @@
 "use client"
-/*__________________________________________*/
-import Image from "next/image"
+
 
 
 import { useEffect, useState } from "react"
@@ -13,17 +12,6 @@ import Link from "next/link"
 import VideoPlayer from "@/components/video-player"
 import { motion } from "framer-motion"
 
-/*__________________________________________*/
-<div className="mb-8">
-  {/* Using Next/Image for optimized loading */}
-  <Image
-    src={project.imageUrl}
-    alt={`${project.title} screenshot`}
-    width={800}
-    height={450}
-    className="w-full rounded-lg shadow"
-  />
-  </div>
 
 
 export default function ProjectDetail() {
@@ -44,9 +32,9 @@ export default function ProjectDetail() {
         iconColor: "text-yellow-500",
         iconBg: "bg-yellow-500/10",
         githubUrl: "https://github.com",
-        imageUrl: "DSC_1061.JPG",
+        videoUrl: "DSC_1061.JPG",
         detailedDescription: `
-      ))))))))))))))))) Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
+          Won a _____________________$10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
           company-templated tutorials from FIGMA designs. The extension analyzes design elements and creates 
           personalized tutorials based on user account information, significantly reducing the time required for 
           creating documentation and onboarding materials.
