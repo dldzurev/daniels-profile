@@ -36,62 +36,21 @@ export default function About() {
           variants={containerVariants}
           className="max-w-4xl mx-auto"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-            About Me
-          </motion.h2>
+          
 
-          <motion.div variants={itemVariants}>
-            <Card className="mb-8 overflow-hidden border-none shadow-lg bg-background rounded-2xl">
-              <CardContent className="p-6">
-                <p className="text-lg mb-6">
-                  I'm a Computer Engineering student at the University of Waterloo with a passion for software
-                  development, AI, and solving complex problems. With experience in both software development and
-                  project coordination, I bring a unique blend of technical and interpersonal skills to any team.
-                </p>
 
-                <h3 className="text-xl font-semibold mb-4">Summary of Qualifications</h3>
 
-                <div className="mb-6">
-                  <h4 className="font-medium mb-2">Programming Languages</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["Python", "C++", "SQL", "HTML", "CSS", "VHDL", "RISC-V", "C#"].map((lang) => (
-                      <Badge key={lang} variant="secondary" className="rounded-full px-3 py-1 text-sm">
-                        {lang}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
 
-                <div>
-                  <h4 className="font-medium mb-2">Technologies & Tools</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "Gitlab",
-                      "Linux",
-                      "Fast API",
-                      ".NET",
-                      "Jupyter Notebooks",
-                      "Docker",
-                      "Vertex AI API",
-                      "Matplotlib",
-                      "Power BI",
-                      "MS Office",
-                      "Excel",
-                      "Google Cloud (GCP)",
-                      "Big Query",
-                      "Pandas",
-                      "Scikit Learn",
-                      "Deepeval",
-                    ].map((tool) => (
-                      <Badge key={tool} variant="outline" className="rounded-full px-3 py-1 text-sm">
-                        {tool}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+
+
+
+
+
+
+
+
+
+          
 
           <motion.div variants={itemVariants}>
             <Card className="overflow-hidden border-none shadow-lg bg-background rounded-2xl">
