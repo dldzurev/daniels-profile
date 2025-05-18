@@ -152,6 +152,19 @@ export default function Projects() {
                       division
                     </span>
                   </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 mt-1">•</span>
+                    <span>
+                      Completed the Toronto Marathon in under 4 hours
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 mt-1">•</span>
+                    <span>
+                    Succesfully managed a personal trading portfolio for 3+ years, actively trading stocks and
+                    crypto; developed strong interest in DeFi and financial markets through hands-on experience
+                    </span>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
