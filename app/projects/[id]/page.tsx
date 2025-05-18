@@ -30,7 +30,7 @@ export default function ProjectDetail() {
         githubUrl: "https://github.com",
         videoUrl: "DSC_1061.JPG",
         detailedDescription: `
-          AAAAAAAAAAAAAAAAAAAAAAWon a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
+          Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
           company-templated tutorials from FIGMA designs. The extension analyzes design elements and creates 
           personalized tutorials based on user account information, significantly reducing the time required for 
           creating documentation and onboarding materials.
@@ -105,8 +105,8 @@ export default function ProjectDetail() {
                   <Image
                     src={`/${project.videoUrl}`}
                     alt={project.title}
-                    width={800}
-                    height={450}
+                    width={600}
+                    height={337}
                     className="rounded-lg object-cover"
                   />
                 ) : (
