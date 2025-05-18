@@ -160,47 +160,27 @@ export default function ProjectDetail() {
               <CardTitle className="text-3xl font-bold text-center">{project.title}</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="mb-8">
-                {project.videoUrl.endsWith(".mp4") ? (
-                  <VideoPlayer src={project.videoUrl} />
-                ) : (
-                  <img
-                    src={project.videoUrl}
-                    alt={project.title}
-                    className="block mx-auto w-3/4 h-auto rounded-lg"
-                  />
-                )}
-              </div>
+              {/* media: hide for ph-sensing & qr-code */}
+<div className="mb-8">
+  {!["ph-sensing", "qr-code"].includes(project.id) && (
+    project.videoUrl.endsWith(".mp4")
+      ? <VideoPlayer src={project.videoUrl} />
+      : (
+        <img
+          src={project.videoUrl}
+          alt={project.title}
+          className="block mx-auto w-3/4 h-auto rounded-lg"
+        />
+      )
+  )}
+</div>
 
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Overview</h3>
-                  <p className="text-muted-foreground">{project.description}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Details</h3>
-                  <p className="text-muted-foreground whitespace-pre-line">{project.detailedDescription}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((skill) => (
-                      <Badge key={skill} className="rounded-full px-3 py-1">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-               
-                <div className="pt-4">
-    {project.docsUrl ? (
+{/* button: hide for ph-sensing & qr-code */}
+<div className="pt-4">
+  {!["ph-sensing", "qr-code"].includes(project.id) && (
+    project.docsUrl ? (
       <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
-        <Button className="w-full sm:w-auto">
-          Project Docs
-        </Button>
+        <Button className="w-full sm:w-auto">Project Docs</Button>
       </Link>
     ) : (
       <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -208,10 +188,10 @@ export default function ProjectDetail() {
           <Github className="h-4 w-4" /> View Code on GitHub
         </Button>
       </Link>
-    )}
-  </div>
+    )
+  )}
+</div>
 
-              </div>
             </CardContent>
           </Card>
         </motion.div>
