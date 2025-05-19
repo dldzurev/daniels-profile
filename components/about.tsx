@@ -37,10 +37,9 @@ export default function About() {
           className="max-w-4xl mx-auto"
         >
           <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-           About Me
+            About Me
           </motion.h2>
-          
-          
+
           <motion.div variants={itemVariants}>
             <Card className="mb-8 overflow-hidden border-none shadow-lg bg-background rounded-2xl">
               <CardContent className="p-6">
