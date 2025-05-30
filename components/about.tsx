@@ -17,7 +17,7 @@ export default function About() {
                 "Fluent in Ukrainian",
                 "Skiing",
                 "Passionate about Building",
-                "Strong Interest in AI Agents",
+                "Jiu Jitsu", "Finance", "Endurance Training"
               ].map((interest) => (
                 <Badge
                   key={interest}

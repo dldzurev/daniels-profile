@@ -68,8 +68,9 @@ export default function Education() {
                   <div className="flex flex-wrap gap-2 ml-7">
                     {[
                       "Data Structures & Algorithms",
-                      "Object Oriented Programming (C++)",
+                      "Object Oriented Programming",
                       "Digital Circuits/Systems",
+                      "Computer Architecture"
                     ].map((course) => (
                       <Badge key={course} className="rounded-full px-3 py-1 text-sm">
                         {course}

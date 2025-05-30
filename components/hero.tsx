@@ -82,7 +82,7 @@ export default function Hero() {
             onInit={(typewriter) => {
               typewriter
                 .typeString(
-                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building solutions to real problems line by line</span>',
+                  '<span class="text-lg md:text-xl text-muted-foreground">Passionate about building solutions to real problems</span>',
                 )
                 .callFunction(() => {
                   document.querySelector(".buttons-container")?.classList.remove("opacity-0")

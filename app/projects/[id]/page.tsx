@@ -104,7 +104,7 @@ export default function ProjectDetail() {
         title: "QR Code Application System",
         description:
           "Created a QR code connected to a form submission website that automatically populated a spreadsheet to optimize application process at career fairs for previous employer (Chandos).",
-        skills: ["Web Development", "QR Code", "Form Submission", "Spreadsheet Automation"],
+        skills: ["Web Development", "QR Code", "Spreadsheet Automation"],
         iconColor: "text-pink-500",
         iconBg: "bg-pink-500/10",
         //githubUrl: "",

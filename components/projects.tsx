@@ -32,7 +32,7 @@ export default function Projects() {
       description:
         "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
       icon: <Database className="h-8 w-8 text-emerald-500" />,
-      skills: ["C++", "Data Analysis", "Hashing", "Algorithms"],
+      skills: ["C++", "Data Analysis", "Object Oriented Programming", "Algorithms", "Runtime Optomization"],
       iconBg: "bg-emerald-500/10",
       videoUrl: "/videos/cpp-tool-demo.mp4",
     },
@@ -41,7 +41,7 @@ export default function Projects() {
       title: "Morse Code Device",
       description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
       icon: <Code className="h-8 w-8 text-purple-500" />,
-      skills: ["RISC-V", "Microprocessor", "Hardware"],
+      skills: ["RISC-V", "Microprocessor", "Hardware", "Assembly", "Embeded Systems"],
       iconBg: "bg-purple-500/10",
       videoUrl: "/videos/morse-code-demo.mp4",
     },
@@ -51,7 +51,7 @@ export default function Projects() {
       description:
         "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
       icon: <Code className="h-8 w-8 text-blue-500" />,
-      skills: ["C", "STM32", "Microcontroller", "Hardware Design"],
+      skills: ["C", "STM32", "Microcontroller", "Hardware Design", "Low Level Programming"],
       iconBg: "bg-blue-500/10",
       videoUrl: "/videos/ph-sensing-demo.mp4",
     },
@@ -61,7 +61,7 @@ export default function Projects() {
       description:
         "Created a QR code connected to a form submission website that automatically populated a spreadsheet to optimize application process at career fairs for previous employer (Chandos).",
       icon: <Code className="h-8 w-8 text-pink-500" />,
-      skills: ["Web Development", "QR Code", "Form Submission", "Spreadsheet Automation"],
+      skills: ["Web Development", "QR Code", "Spreadsheet Automation"],
       iconBg: "bg-pink-500/10",
       videoUrl: "/videos/qr-code-demo.mp4",
     },
@@ -148,8 +148,7 @@ export default function Projects() {
                   <li className="flex items-start">
                     <span className="mr-2 mt-1">•</span>
                     <span>
-                      UW Formula Electric Design Team (full size electric race car): active member of drivetrain design
-                      division
+                      UW Formula Electric Design Team (full size electric race car)
                     </span>
                   </li>
                   <li className="flex items-start">
