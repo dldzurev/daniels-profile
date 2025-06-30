@@ -3,7 +3,7 @@ import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
-  title: "Daniel Dzurevych - Computer Engineering Student",
+  title: "Daniel L. Dzurevych - Computer Engineering Student",
   description:
     "Personal portfolio website of Daniel Dzurevych, a Computer Engineering student at the University of Waterloo",
     generator: 'v0.dev'
