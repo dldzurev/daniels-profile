@@ -4,9 +4,15 @@ import { useRef, useEffect, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { useTheme } from "next-themes"
 
-function Particles({ count = 200, theme }) {
+interface Mouse {
+  x: number
+  y: number
+}
+
+function Particles({ count = 200, theme, mouse }: { count?: number; theme: string; mouse: Mouse }) {
   const mesh = useRef()
   const isDark = theme === "dark"
+  const color = isDark ? "#ADD8E6" : "#5AA4CF"
 
   const particlePositions = Array.from({ length: count }, () => ({
     x: (Math.random() - 0.5) * 20,
@@ -33,6 +39,10 @@ function Particles({ count = 200, theme }) {
     }
 
     mesh.current.geometry.attributes.position.needsUpdate = true
+
+    // Rotate based on mouse position for interactivity
+    mesh.current.rotation.x = mouse.y * 0.5
+    mesh.current.rotation.y = mouse.x * 0.5
   })
 
   return (
@@ -45,7 +55,7 @@ function Particles({ count = 200, theme }) {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.05} color={isDark ? "#ffffff" : "#000000"} transparent opacity={0.3} />
+      <pointsMaterial size={0.05} color={color} transparent opacity={0.5} />
     </points>
   )
 }
@@ -53,6 +63,7 @@ function Particles({ count = 200, theme }) {
 export default function ThreeDBackground() {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [mouse, setMouse] = useState<Mouse>({ x: 0, y: 0 })
 
   useEffect(() => {
     setMounted(true)
@@ -61,8 +72,15 @@ export default function ThreeDBackground() {
   if (!mounted) return null
 
   return (
-    <Canvas camera={{ position: [0, 0, 5] }}>
-      <Particles theme={theme} />
+    <Canvas
+      camera={{ position: [0, 0, 5] }}
+      onPointerMove={(e) => {
+        const x = (e.clientX / window.innerWidth) * 2 - 1
+        const y = -(e.clientY / window.innerHeight) * 2 + 1
+        setMouse({ x, y })
+      }}
+    >
+      <Particles theme={theme ?? "light"} mouse={mouse} />
     </Canvas>
   )
 }

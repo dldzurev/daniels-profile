@@ -27,7 +27,7 @@ export default function ProjectDetail() {
         skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "FIGMA"],
         iconColor: "text-yellow-500",
         iconBg: "bg-yellow-500/10",
-        githubUrl: "https://github.com",
+        //githubUrl: "https://github.com",
         videoUrl: "/DSC_1061.JPG",
         detailedDescription: `
           Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 

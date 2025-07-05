@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Badge } from "@/components/ui/badge"
+import { useEffect, useRef, useState } from "react"
 
 export default function Experience() {
   const [ref, inView] = useInView({
@@ -11,6 +12,18 @@ export default function Experience() {
   })
 
   const experiences = [
+    {
+      title: "Software Engineer",
+      company: "SIEMENS",
+      location: "Toronto, ON",
+      period: "May 2025 - Present",
+      achievements: [
+        "Contributed to embedded systems software for industrial networking products, developing and debugging C/C++ modules in a Linux environment ensuring speed and zero packet loss",
+        ".NET-based web applications to manage configuration workflows and optimize production process",
+        "Built multiple features for Novel operating system used in routers, switches, and modems worldwide",
+      ],
+      skills: ["C", "C++", ".NET", "Linux", "Embedded Systems", "Networking"],
+    },
     {
       title: "Software Developer",
       company: "Questrade Enterprise",
@@ -52,6 +65,27 @@ export default function Experience() {
     },
   ]
 
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return
+      const rect = sectionRef.current.getBoundingClientRect()
+      const height = rect.height - window.innerHeight
+      if (height <= 0) {
+        setProgress(0)
+        return
+      }
+      const scrolled = Math.min(Math.max((window.innerHeight - rect.top) / height, 0), 1)
+      setProgress(scrolled)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -68,7 +102,18 @@ export default function Experience() {
   }
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" ref={sectionRef} className="py-20 relative">
+      <div
+        className="absolute left-4 top-0 bottom-0 flex justify-center"
+        aria-hidden="true"
+      >
+        <div className="relative w-px bg-gray-300 dark:bg-gray-700 h-full">
+          <div
+            className="absolute -left-1 w-3 h-3 rounded-full bg-blue-500"
+            style={{ top: 0, transform: `translateY(${progress * 100}%)` }}
+          />
+        </div>
+      </div>
       <div className="container px-4">
         <motion.div
           ref={ref}

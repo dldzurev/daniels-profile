@@ -56,7 +56,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4"
         >
-          Daniel Dzurevych
+          Daniel Luke Dzurevych
         </motion.h1>
 
         <div className="h-12 mb-2">
