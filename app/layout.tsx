@@ -7,7 +7,7 @@ export const metadata = {
   title: "Daniel Luke Dzurevych - Computer Engineering Student",
 
   description:
-    "Personal portfolio website of Daniel Luke Dzurevych, a Computer Engineering student at the University of Waterloo",
+    "Portfolio website of Daniel Luke Dzurevych, a Computer Engineering student at the University of Waterloo",
     generator: 'v0.dev'
 }
 
