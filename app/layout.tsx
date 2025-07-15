@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
 
-  title: "Daniel Dzurevych - Computer Engineering Student",
+  title: "Daniel Dzurevych - Computer Engineering @ UWaterloo",
 
   description:
     "Portfolio website of Daniel Dzurevych, a Computer Engineering student at the University of Waterloo",
