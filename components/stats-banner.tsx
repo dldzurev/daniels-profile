@@ -24,7 +24,7 @@ export default function StatsBanner() {
       label: "Hackathon Win",
     },
     {
-      value: "$6.7k",
+      value: "$7.5k",
       label: "Scholarships",
     },
   ]
