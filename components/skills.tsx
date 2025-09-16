@@ -14,27 +14,36 @@ export default function Skills() {
 
   const programmingSkills = [
     "Python",
-    "C++",
-    "SQL",
-    "HTML/CSS",
-    "JavaScript",
-    "C#",
-    "RISC-V",
+    "C/C++",
     "VHDL",
+    "RISC-V",
+    "SQL",
+    "HTML",
+    "CSS",
+    "C#",
+    "JavaScript/Typescript",
   ]
 
   const technologiesSkills = [
-    "Jupyter Notebooks",
-    "Pandas",
-    "Scikit-learn",
-    "Docker",
-    "Google Cloud (GCP)",
-    "Fast API",
-    "Vertex AI",
-    "Git/Gitlab",
+    "Git",
     "Linux",
+    "FastAPI",
+    ".NET",
+    "Flask",
+    "Docker",
+
+    "Matplotlib",
+
     "BigQuery",
+    "GCP(Google cloud)",
+    "Pandas",
+    "Numpy",
+    "Scikit Learn",
     "Deepeval",
+    "CMake",
+    "Command line",
+    "Agentic AI",
+    "Systems Programming",
   ]
 
   const softSkills = [

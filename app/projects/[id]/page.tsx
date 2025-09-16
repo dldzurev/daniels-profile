@@ -20,6 +20,62 @@ export default function ProjectDetail() {
   useEffect(() => {
     const projects = [
       {
+        id: "conductor",
+        title: "Conductor",
+        description:
+          "An AI orchestration platform that automates workflows across your entire software ecosystem. Built with distributed AI orchestration, 3D avatar interface, and seamless integration across multiple enterprise platforms.",
+        skills: ["Next.js", "Python", "FastAPI", "Gemini AI", "React Flow", "Three.js", "Node.js", "Computer Vision"],
+        iconColor: "text-orange-500",
+        iconBg: "bg-orange-500/10",
+        githubUrl: "https://github.com/dldzurev/Spurhacks-2025",
+        devpostUrl: "https://devpost.com/software/conductor-65x9i7",
+        videoUrl: "https://www.youtube.com/watch?v=V2578vWWx10&t=2s",
+        detailedDescription: `
+          Conductor is a revolutionary AI operator that automates workflows across your entire software ecosystem. 
+          Enterprise workflows are fractured across dozens of disconnected platforms, forcing knowledge workers to 
+          waste countless hours on manual coordination tasks. We recognized that while AI excels within individual 
+          applications, it fails catastrophically when businesses need autonomous execution across their entire 
+          software ecosystem.
+          
+          Conductor revolutionizes enterprise automation through distributed AI orchestration that seamlessly 
+          coordinates complex workflows across 15+ business-critical platforms. Users design sophisticated visual 
+          workflows using our intuitive React Flow interface, then deploy intelligent multimodal agents that 
+          autonomously execute end-to-end processes spanning Gmail, Slack, Calendar, CRM systems, document management, 
+          and communication platforms.
+          
+          Our breakthrough 3D avatar with advanced computer vision provides real-time guidance and feedback while 
+          maintaining comprehensive audit trails and enterprise compliance standards throughout every automated workflow. 
+          Built in 36 hours, Conductor demonstrates how cutting-edge AI orchestration can transform enterprise productivity 
+          by eliminating the manual coordination bottlenecks that plague modern businesses.
+        `,
+      },
+      {
+        id: "orchestrator",
+        title: "Orchestrator",
+        description:
+          "No-code trading platform for equities, crypto, and forex with access to automated institutional-grade tools that enable you to trade like quant/HFT firms.",
+        skills: ["Python", "FastAPI", "JavaScript", "Pandas", "NumPy", "WebSockets", "Finnhub API", "Trading"],
+        iconColor: "text-blue-500",
+        iconBg: "bg-blue-500/10",
+        githubUrl: "https://github.com/dldzurev/Orchestrator",
+        devpostUrl: "https://devpost.com/software/orchestrator",
+        videoUrl: "/demo.mp4",
+        detailedDescription: `
+          ORCHESTRATOR is a no-code trading platform that empowers users to trade equities, crypto, and forex with 
+          the same tools used by quant and high-frequency trading (HFT) firms. Build visually — create strategies, 
+          define buy/sell logic, choose time ranges and conditions — then run and backtest them without writing a 
+          line of code.
+          
+          The platform features a strategy builder with drag-and-drop functionality, server-side implementations 
+          of technical indicators (SMA/EMA, Bollinger Bands, Z-scores, realized volatility), automation capabilities, 
+          and comprehensive backtesting with historical data. The system handles real market data through Finnhub 
+          WebSocket streams and provides fallback synthetic data generation for reliable offline testing.
+          
+          Built with Python + FastAPI backend and a single-page HTML/JS frontend using Lightweight-Charts, 
+          Orchestrator brings institutional-grade trading tools to non-programmers through an intuitive visual interface.
+        `,
+      },
+      {
         id: "hackathon-winner",
         title: "$10,000 Hackathon Winner",
         description:
@@ -163,6 +219,22 @@ export default function ProjectDetail() {
                 <div className="mb-8">
                   {project.videoUrl.endsWith(".mp4") ? (
                     <VideoPlayer src={project.videoUrl} />
+                  ) : project.videoUrl === "MYVIDEO" ? (
+                    <div className="relative w-full flex items-center justify-center" style={{ aspectRatio: "16/9" }}>
+                      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center w-full h-full">
+                        <span className="text-2xl font-bold text-gray-500 dark:text-gray-400">MYVIDEO</span>
+                      </div>
+                    </div>
+                  ) : project.videoUrl.includes("youtube.com") || project.videoUrl.includes("youtu.be") ? (
+                    <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+                      <iframe
+                        src={project.videoUrl.replace("watch?v=", "embed/").replace("&t=", "?start=")}
+                        title={project.title}
+                        className="absolute top-0 left-0 w-full h-full rounded-lg"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
                   ) : (
                     <img
                       src={project.videoUrl}
@@ -196,18 +268,26 @@ export default function ProjectDetail() {
                 </div>
               </div>
 
-              {/* only render a button if there's a GitHub or Docs URL */}
-              {(project.githubUrl || project.docsUrl) && (
-                <div className="pt-4">
-                  {project.docsUrl ? (
-                    <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="w-full sm:w-auto">Project Docs</Button>
-                    </Link>
-                  ) : (
+              {/* only render buttons if there are URLs */}
+              {(project.githubUrl || project.docsUrl || project.devpostUrl) && (
+                <div className="pt-4 flex flex-wrap gap-3">
+                  {project.githubUrl && (
                     <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="w-full sm:w-auto gap-2">
+                      <Button className="gap-2">
                         <Github className="h-4 w-4" /> View Code on GitHub
                       </Button>
+                    </Link>
+                  )}
+                  {project.devpostUrl && (
+                    <Link href={project.devpostUrl} target="_blank" rel="noopener noreferrer">
+                      <Button className="gap-2">
+                        <span className="text-sm font-medium">Devpost</span>
+                      </Button>
+                    </Link>
+                  )}
+                  {project.docsUrl && (
+                    <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline">Project Docs</Button>
                     </Link>
                   )}
                 </div>

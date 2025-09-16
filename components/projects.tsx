@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code, Database, Trophy } from "lucide-react"
+import { Code, Database, Trophy, TrendingUp, Network } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export default function Projects() {
@@ -16,6 +16,26 @@ export default function Projects() {
   const router = useRouter()
 
   const projects = [
+    {
+      id: "conductor",
+      title: "Conductor",
+      description:
+        "An AI orchestration platform that automates workflows across your entire software ecosystem. Built with distributed AI orchestration, 3D avatar interface, and seamless integration across multiple enterprise platforms.",
+      icon: <Network className="h-8 w-8 text-orange-500" />,
+      skills: ["Next.js", "Python", "FastAPI", "Gemini AI", "React Flow", "Three.js", "Node.js", "Computer Vision"],
+      iconBg: "bg-orange-500/10",
+      videoUrl: "/videos/conductor-demo.mp4",
+    },
+    {
+      id: "orchestrator",
+      title: "Orchestrator",
+      description:
+        "No-code trading platform for equities, crypto, and forex with access to automated institutional-grade tools that enable you to trade like quant/HFT firms.",
+      icon: <TrendingUp className="h-8 w-8 text-blue-500" />,
+      skills: ["Python", "FastAPI", "JavaScript", "Pandas", "NumPy", "WebSockets", "Finnhub API", "Trading"],
+      iconBg: "bg-blue-500/10",
+      videoUrl: "/demo.mp4",
+    },
     {
       id: "hackathon-winner",
       title: "$10,000 Hackathon Winner",
