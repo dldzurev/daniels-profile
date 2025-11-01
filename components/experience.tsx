@@ -18,10 +18,10 @@ export default function Experience() {
       location: "Toronto, ON",
       period: "May 2025 - Present",
       achievements: [
-        "Developed, and tested features for a proprietary operating system used in switches, routers, and modems worldwide including a new universal embedded logging system",
-        "Built efficient SQL queries for relational databases, .NET-based apps to improve production efficiency",
-        "Developed C/C++ modules and tests for Ruggedcom industrial routers/switches in a distributed system running on Linux, ensuring high-speed packet forwarding, maintaining efficient system design and zero packet loss",
-        "Collaborated with firmware team to create diagnostics software, optimize device performance across deployments, and worked extensively with network protocols such as TFTP for device config and firmware transfer",
+        "Developed and tested features for a proprietary networking OS used in switches/routers worldwide, including a universal embedded logging system that improved observability for validation and diagnostics (C++/C, Bash)",
+        "Built efficient SQL queries for relational databases, .NET-based apps to improve manufacturing line efficiency and performed hardware validation",
+        "Implemented and debugged C/C++ modules for Ruggedcom industrial routers/switches on Linux in a distributed system, ensuring no new slow downs and zero packet loss under stress tests",
+        "Collaborated with firmware engineers to des",
       ],
       skills: ["C", "C++", ".NET", "Linux", "Embedded Systems", "Networking"],
     },
@@ -32,9 +32,9 @@ export default function Experience() {
       period: "September 2024 - December 2024",
       achievements: [
         "Reduced HR workload by creating an automated pipeline for data cleaning of 600+ person sample (JavaScript) and modeled company-wide statistics (Jupyter Notebooks) to deliver data-driven reports",
-        "Developed microservices and automated testing for AI-driven financial products, to monitor hallucination",
+        
         "Created an LLM-OPS platform & prompt evaluation program to ensure accuracy and reliability of output (Python, Scikit-learn, Pandas, Deepeval, Vertex AI, LangGraph)",
-        "Assisted in the enhancement of internal chat bot performance by implementing improved vector search methods (Python, C++), leading to more accurate responses for employees",
+
         "Built, debugged and automated testing for AI guardrails with agile and CI/CD methodologies ensuring compliance and prevent liability by detecting and blocking unauthorized financial advice in customer-facing tool",
         "Improved call transcription accuracy by 15% for the Customer Experience team by helping automate a transcript parser and analyzing trends using BigQuery, enhancing insights while maintaining security of sensitive data",
       ],
@@ -48,7 +48,7 @@ export default function Experience() {
       period: "January 2024 - April 2024",
       achievements: [
         "Led on-site safety inspections, coordinated subcontractor meetings, oversaw project communications and assisted a $300,000 legal claim by compiling key evidence, contributing to a more structured legal case",
-        "Honed my problem solving skills by planning and implementing solutions to unique interpersonal and random variable challenges resulting in greater efficiency",
+        
         "Prepared and tendered contracts/documents and SOW's, prepared estimates, created closeouts (2000+ page document) under tight deadlines and created company wide software tutorials, improving internal training and onboarding efficiency",
       ],
       skills: ["Project Management", "Problem Solving", "Documentation", "Contract Preparation", "Training", "Communication", "Financial Estimates", "Optomization"],
