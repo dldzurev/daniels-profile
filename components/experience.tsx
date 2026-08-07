@@ -1,167 +1,182 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Badge } from "@/components/ui/badge"
-import { useEffect, useRef, useState } from "react"
+import { ArrowUpRight } from "lucide-react"
+
+const experiences = [
+  {
+    title: "Software Engineer",
+    company: "Until Labs",
+    location: "San Francisco, CA",
+    period: "January 2026 - May 2026",
+    summary: "Hardware automation, experimental controls, and resilient device infrastructure.",
+    achievements: [
+      "Built a Python self-diagnosing hardware validator for approximately 15 devices that enumerated serial ports, probed expected responses, identified disconnected or misconfigured hardware, and automatically repaired device-to-port mappings.",
+      "Designed a JSON-defined protocol orchestration engine for cryopreservation experiments, executing configurable timed, triggered, and parallel procedures across connected equipment with live sensor polling, failure handling, and comprehensive logging for reproducible runs.",
+      "Built a company-wide monitoring and response system for 24+ hour experiments using Twilio and Slack; user-defined thresholds could trigger equipment actions and configurable call or text escalation workflows.",
+      "Developed Python, C, and C++ drivers and embedded interfaces for approximately 10 devices over USB serial, RS-232, Ethernet, and I2C; designed and soldered ADC and microcontroller interfaces with retry handling, calibration correction, real-time acquisition, and PID control.",
+      "Refactored the controls stack around reusable serial-device base classes, fixed threading issues, and automated microcontroller firmware deployment across lab computers, eliminating approximately 10,000 lines of code.",
+      "Helped repurpose a Linux workstation as an on-prem data service, installing a NIC, racking networking hardware, and exposing an internally accessible endpoint.",
+    ],
+    skills: ["Python", "C", "C++", "Linux", "Serial", "RS-232", "Ethernet", "I2C", "PID Control", "Concurrency"],
+  },
+  {
+    title: "Software Engineer",
+    company: "Siemens Ruggedcom",
+    location: "Toronto, ON",
+    period: "May 2025 - August 2025",
+    summary: "Embedded networking software for industrial routers and switches.",
+    achievements: [
+      "Developed and tested C and C++ features for a proprietary networking OS running on industrial routers and switches worldwide.",
+      "Built a standardized embedded logging and observability framework reusable across subsystems for errors, diagnostics, and runtime state.",
+      "Implemented and debugged C and C++ modules on embedded Linux, validating router and switch behavior under stress tests with zero packet loss and no performance regressions.",
+      "Worked with Linux networking and device workflows including SSH, TFTP, Bash, configuration and firmware transfer, diagnostics, and automated hardware validation for production networking equipment.",
+    ],
+    skills: ["C", "C++", "Embedded Linux", "Networking", "SSH", "TFTP", "Bash", "Hardware Validation"],
+  },
+  {
+    title: "AI Software Developer",
+    company: "Questrade Enterprise",
+    location: "Toronto, ON",
+    period: "September 2024 - December 2024",
+    summary: "Evaluation, guardrails, and production analytics for financial AI systems.",
+    achievements: [
+      "Built a Python LLM evaluation and guardrail platform with automated testing and CI to detect production failure modes and enforce system constraints for an AI-driven financial product.",
+      "Built a BigQuery-backed transcription validation pipeline that improved semantic-labeling accuracy by 15%, with automated cleaning and validation for production analytics.",
+    ],
+    skills: ["Python", "LLM Evaluation", "AI Guardrails", "Automated Testing", "CI/CD", "BigQuery", "Production Analytics"],
+  },
+  {
+    title: "Student Project Coordinator",
+    company: "Chandos",
+    location: "Various locations across the GTA",
+    period: "January 2024 - April 2024",
+    summary: "Field coordination, commercial documentation, and project delivery across active construction sites.",
+    achievements: [
+      "Coordinated safety inspections, subcontractor meetings, and project communications across active GTA construction sites.",
+      "Prepared contracts, scopes of work, estimates, and a 2,000+ page project closeout package under schedule constraints.",
+      "Created company-wide software tutorials and supported a six-figure legal claim by compiling evidence and coordinating communication between involved parties.",
+    ],
+    skills: ["Project Coordination", "Bluebeam Revu", "Fieldview", "Viewpoint", "Vista", "SharePoint", "Contracts", "Estimating"],
+  },
+  {
+    title: "Coding Teacher / Developer",
+    company: "TCDSB",
+    location: "Virtual across Toronto",
+    period: "January 2023 - June 2023",
+    summary: "An original programming initiative built to make coding approachable for younger students.",
+    achievements: [
+      "Founded an initiative that taught elementary and high school students programming through project-based lessons and educational games built with HTML, CSS, Python, and Pygame.",
+      "Promoted the program across the Toronto Catholic District School Board and delivered nine workshops to more than 150 students.",
+    ],
+    skills: ["Python", "Pygame", "HTML", "CSS", "Teaching", "Workshop Facilitation", "Presenting", "Leadership"],
+  },
+]
 
 export default function Experience() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
-  const experiences = [
-    {
-      title: "Software Engineer",
-      company: "SIEMENS",
-      location: "Toronto, ON",
-      period: "May 2025 - Present",
-      achievements: [
-        "Developed and tested features for a proprietary networking OS used in switches/routers worldwide, including a universal embedded logging system that improved observability for validation and diagnostics (C++/C, Bash)",
-        "Built efficient SQL queries for relational databases, .NET-based apps to improve manufacturing line efficiency and performed hardware validation",
-        "Implemented and debugged C/C++ modules for Ruggedcom industrial routers/switches on Linux in a distributed system, ensuring no new slow downs and zero packet loss under stress tests",
-        "Collaborated with firmware engineers to des",
-      ],
-      skills: ["C", "C++", ".NET", "Linux", "Embedded Systems", "Networking"],
-    },
-    {
-      title: "Software Developer",
-      company: "Questrade Enterprise",
-      location: "Toronto, ON",
-      period: "September 2024 - December 2024",
-      achievements: [
-        "Reduced HR workload by creating an automated pipeline for data cleaning of 600+ person sample (JavaScript) and modeled company-wide statistics (Jupyter Notebooks) to deliver data-driven reports",
-        
-        "Created an LLM-OPS platform & prompt evaluation program to ensure accuracy and reliability of output (Python, Scikit-learn, Pandas, Deepeval, Vertex AI, LangGraph)",
-
-        "Built, debugged and automated testing for AI guardrails with agile and CI/CD methodologies ensuring compliance and prevent liability by detecting and blocking unauthorized financial advice in customer-facing tool",
-        "Improved call transcription accuracy by 15% for the Customer Experience team by helping automate a transcript parser and analyzing trends using BigQuery, enhancing insights while maintaining security of sensitive data",
-      ],
-      skills: ["Python", "JavaScript", "C++", "AI/ML", "Vertex AI", "AI Guardrails" , "BigQuery", "Pandas", "Scikit-learn", "Deepeval" , "Microservices" , "Finance" , "LLM-Ops" , "Prompt" , "Langraph" , "AUtomated/Unit Testing" , "Compliance/Data Security"],
-    },                                           
-                           
-    {
-      title: "Project Coordinator",
-      company: "Chandos",
-      location: "Various locations across GTA",
-      period: "January 2024 - April 2024",
-      achievements: [
-        "Led on-site safety inspections, coordinated subcontractor meetings, oversaw project communications and assisted a $300,000 legal claim by compiling key evidence, contributing to a more structured legal case",
-        
-        "Prepared and tendered contracts/documents and SOW's, prepared estimates, created closeouts (2000+ page document) under tight deadlines and created company wide software tutorials, improving internal training and onboarding efficiency",
-      ],
-      skills: ["Project Management", "Problem Solving", "Documentation", "Contract Preparation", "Training", "Communication", "Financial Estimates", "Optomization"],
-    },
-    {
-      title: "Coding Teacher/Developer",
-      company: "TCDSB (Toronto Catholic District School Board)",
-      location: "Virtual across Toronto",
-      period: "January 2023 - June 2023",
-      achievements: [
-        "Founded initiative that teaches grade school and high school students basic programming using simple projects and educational games I created (HTML, CSS, Python, and Pygame)",
-        "Proactively promoted my initiative across TCDSB, leading to 9 successful workshops with 150+ attendees",
-      ],
-      skills: ["HTML", "CSS", "Python", "Pygame", "Teaching", "Workshop Facilitation", "Presenting", "Leadership"],
-    },
-  ]
-
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const height = rect.height - window.innerHeight
-      if (height <= 0) {
-        setProgress(0)
-        return
-      }
-      const scrolled = Math.min(Math.max((window.innerHeight - rect.top) / height, 0), 1)
-      setProgress(scrolled)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 })
+  const activeExperience = experiences[activeIndex]
 
   return (
-    <section id="experience" ref={sectionRef} className="py-20 relative">
-      <div
-        className="absolute left-4 top-0 bottom-0 flex justify-center"
-        aria-hidden="true"
-      >
-        <div className="relative w-px bg-gray-300 dark:bg-gray-700 h-full">
-          <div
-            className="absolute -left-1 w-3 h-3 rounded-full bg-blue-500"
-            style={{ top: 0, transform: `translateY(${progress * 100}%)` }}
-          />
-        </div>
-      </div>
+    <section id="experience" className="section-shell relative">
       <div className="container px-4">
         <motion.div
           ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.65 }}
+          className="mx-auto max-w-6xl"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-            Professional Experience
-          </motion.h2>
+          <div className="mb-12 grid gap-5 md:grid-cols-[0.85fr_1.15fr] md:items-end">
+            <div>
+              <p className="circuit-kicker">Where I have built</p>
+              <h2 className="section-heading mb-0">Professional Experience</h2>
+            </div>
+            <p className="max-w-xl border-l border-primary/35 pl-5 text-lg leading-relaxed text-muted-foreground">
+              Five roles spanning embedded systems, AI infrastructure, field coordination, and technical education.
+            </p>
+          </div>
 
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <motion.div key={index} variants={itemVariants} className="flex flex-col md:flex-row gap-4 md:gap-8">
-                <div className="md:w-64 md:sticky md:top-20 md:self-start text-center md:text-left mb-4 md:mb-0">
-                  <div className="text-gray-600 dark:text-gray-400">{exp.period}</div>
-                  <div className="text-gray-600 dark:text-gray-400">{exp.location}</div>
-                </div>
+          <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-10">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:self-start" role="tablist" aria-label="Professional roles">
+              {experiences.map((experience, index) => {
+                const active = index === activeIndex
 
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold">{exp.title}</h3>
-                  <p className="text-gray-800 dark:text-gray-200 text-lg mb-4">{exp.company}</p>
+                return (
+                  <button
+                    key={`${experience.company}-${experience.period}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setActiveIndex(index)}
+                    className={`group relative min-h-28 border p-4 text-left transition-all duration-300 lg:min-h-32 ${
+                      active
+                        ? "border-primary/55 bg-primary text-primary-foreground shadow-[0_16px_50px_hsl(var(--primary)/0.14)]"
+                        : "border-border/70 bg-card/55 text-foreground backdrop-blur-sm hover:border-primary/40 hover:bg-card/80"
+                    }`}
+                  >
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <span className={`text-xs font-semibold ${active ? "text-primary-foreground/65" : "text-muted-foreground"}`}>
+                        0{index + 1}
+                      </span>
+                      <ArrowUpRight className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${active ? "text-primary-foreground" : "text-primary"}`} />
+                    </div>
+                    <div className="text-base font-semibold">{experience.company}</div>
+                    <div className={`mt-1 text-xs leading-relaxed ${active ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                      {experience.period}
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
 
-                  <ul className="space-y-4 mb-6">
-                    {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="flex items-start">
-                        <span className="mr-2 mt-1 text-gray-800 dark:text-gray-200">•</span>
+            <div className="relative">
+              <div className="absolute -left-10 top-16 hidden h-px w-10 bg-primary/35 lg:block" aria-hidden="true" />
+              <AnimatePresence mode="wait">
+                <motion.article
+                  key={activeExperience.company}
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.32, ease: "easeOut" }}
+                  className="sharp-card p-5 md:p-8"
+                  role="tabpanel"
+                >
+                  <div className="mb-8 grid gap-5 border-b border-border/70 pb-7 md:grid-cols-[1fr_auto] md:items-start">
+                    <div>
+                      <p className="circuit-kicker mb-2">{activeExperience.company}</p>
+                      <h3 className="text-3xl font-semibold leading-tight text-foreground md:text-4xl">{activeExperience.title}</h3>
+                      <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{activeExperience.summary}</p>
+                    </div>
+                    <div className="text-left text-sm md:text-right">
+                      <p className="font-semibold text-primary">{activeExperience.period}</p>
+                      <p className="mt-1 text-muted-foreground">{activeExperience.location}</p>
+                    </div>
+                  </div>
+
+                  <ul className="space-y-5">
+                    {activeExperience.achievements.map((achievement) => (
+                      <li key={achievement} className="grid grid-cols-[12px_1fr] gap-3 leading-relaxed text-foreground/90">
+                        <span className="circuit-link-dot" />
                         <span>{achievement}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {exp.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="outline"
-                        className="rounded-full px-3 py-1 text-xs bg-gray-100 dark:bg-gray-800 border-none"
-                      >
+                  <div className="mt-8 flex flex-wrap gap-2 border-t border-border/70 pt-6">
+                    {activeExperience.skills.map((skill) => (
+                      <Badge key={skill} variant="outline" className="circuit-chip px-3 py-1 text-xs">
                         {skill}
                       </Badge>
                     ))}
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.article>
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
       </div>

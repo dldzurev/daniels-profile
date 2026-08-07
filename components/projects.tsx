@@ -4,190 +4,253 @@ import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code, Database, Trophy, TrendingUp, Network } from "lucide-react"
+import {
+  ArrowUpRight,
+  Braces,
+  Cpu,
+  Database,
+  FlaskConical,
+  Layers3,
+  Network,
+  QrCode,
+  Radio,
+  TrendingUp,
+  Trophy,
+  Workflow,
+} from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export default function Projects() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+const featuredProjects = [
+  {
+    id: "real-time-executive",
+    title: "Real-Time Executive",
+    category: "Operating Systems",
+    description:
+      "Built an RTX in C on an ARM Cortex-A9/DE1-SoC with first-fit memory allocation, priority-based preemptive scheduling, and task lifecycle management.",
+    icon: Workflow,
+    skills: ["C", "ARM Cortex-A9", "DE1-SoC", "RTOS", "Preemptive Scheduling", "Memory Allocation"],
+  },
+  {
+    id: "concurrent-network-systems",
+    title: "Concurrent Network Systems",
+    category: "Systems & Networking",
+    description:
+      "Built C and Linux systems using pthreads, libcurl, pipes and shared-memory IPC, synchronization, sockets, parallel web crawling, and asynchronous event-driven I/O.",
+    icon: Network,
+    skills: ["C", "Linux", "pthreads", "libcurl", "Shared Memory", "Sockets", "Async I/O"],
+  },
+  {
+    id: "fpga-mvm-accelerator",
+    title: "FPGA MVM Accelerator",
+    category: "Digital Hardware",
+    description:
+      "Built a parameterized SystemVerilog matrix-vector multiplication engine with pipelined 8-lane dot-product units, memory buffers, accumulators, and FSM control; verified in Vivado at 350+ MHz.",
+    icon: Cpu,
+    skills: ["SystemVerilog", "FPGA", "Vivado", "Pipelining", "FSM", "350+ MHz"],
+  },
+  {
+    id: "conductor",
+    title: "Conductor",
+    category: "Software Orchestration",
+    description:
+      "Built a Python and FastAPI orchestration platform that automates end-to-end workflows across Slack, Gmail, Notion, and AI voice agents through external APIs.",
+    icon: Braces,
+    skills: ["Python", "FastAPI", "Slack API", "Gmail API", "Notion API", "AI Voice Agents"],
+  },
+  {
+    id: "hackathon-winner",
+    title: "$10,000 Hackathon Win",
+    category: "Applied AI",
+    description:
+      "Built a Chrome extension that generates personalized company software tutorials from Figma designs and account context using Vertex AI.",
+    icon: Trophy,
+    skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "Figma"],
+  },
+]
 
+const moreProjects = [
+  {
+    id: "orchestrator",
+    title: "Orchestrator",
+    category: "Financial Systems",
+    description: "A no-code trading platform for building, running, and backtesting strategies across equities, crypto, and forex.",
+    icon: TrendingUp,
+    skills: ["Python", "FastAPI", "JavaScript", "Pandas", "WebSockets"],
+  },
+  {
+    id: "context-co",
+    title: "Context Co",
+    category: "Product / Software",
+    description: "Project page and supporting materials are being prepared.",
+    icon: Layers3,
+    skills: [],
+  },
+  {
+    id: "cpp-data-analysis",
+    title: "C++ Data Analysis Tool",
+    category: "Algorithms & Data",
+    description: "A graph-based CSV analysis tool with constant-time hash lookup, tested with up to two million data points.",
+    icon: Database,
+    skills: ["C++", "Data Structures", "Hashing", "Performance"],
+  },
+  {
+    id: "morse-code",
+    title: "Morse Code Device",
+    category: "Embedded Systems",
+    description: "A RISC-V microprocessor system that translates text input into Morse code displayed through an LED.",
+    icon: Radio,
+    skills: ["RISC-V", "Assembly", "Embedded Systems", "Hardware"],
+  },
+  {
+    id: "ph-sensing",
+    title: "pH Sensing Device",
+    category: "Sensing & Hardware",
+    description: "An STM32-based device programmed in C to monitor pH measurements and detect irregular readings.",
+    icon: FlaskConical,
+    skills: ["C", "STM32", "Sensors", "Hardware Design"],
+  },
+  {
+    id: "qr-code",
+    title: "QR Code Application System",
+    category: "Workflow Automation",
+    description: "A QR-based application workflow that automated form collection and spreadsheet entry for Chandos career fairs.",
+    icon: QrCode,
+    skills: ["Web Development", "QR Codes", "Spreadsheet Automation"],
+  },
+]
+
+export default function Projects() {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 })
   const router = useRouter()
 
-  const projects = [
-    {
-      id: "conductor",
-      title: "Conductor",
-      description:
-        "An AI orchestration platform that automates workflows across your entire software ecosystem. Built with distributed AI orchestration, 3D avatar interface, and seamless integration across multiple enterprise platforms.",
-      icon: <Network className="h-8 w-8 text-orange-500" />,
-      skills: ["Next.js", "Python", "FastAPI", "Gemini AI", "React Flow", "Three.js", "Node.js", "Computer Vision"],
-      iconBg: "bg-orange-500/10",
-      videoUrl: "/videos/conductor-demo.mp4",
-    },
-    {
-      id: "orchestrator",
-      title: "Orchestrator",
-      description:
-        "No-code trading platform for equities, crypto, and forex with access to automated institutional-grade tools that enable you to trade like quant/HFT firms.",
-      icon: <TrendingUp className="h-8 w-8 text-blue-500" />,
-      skills: ["Python", "FastAPI", "JavaScript", "Pandas", "NumPy", "WebSockets", "Finnhub API", "Trading"],
-      iconBg: "bg-blue-500/10",
-      videoUrl: "/demo.mp4",
-    },
-    {
-      id: "hackathon-winner",
-      title: "$10,000 Hackathon Winner",
-      description:
-        "Built a chrome extension connected to Vertex AI that automatically creates company templated dynamic tutorials from FIGMA designs, personalized based on account information.",
-      icon: <Trophy className="h-8 w-8 text-yellow-500" />,
-      skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "FIGMA"],
-      iconBg: "bg-yellow-500/10",
-      videoUrl: "/videos/hackathon-demo.mp4",
-    },
-    {
-      id: "cpp-data-analysis",
-      title: "C++ Data Analysis Tool",
-      description:
-        "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
-      icon: <Database className="h-8 w-8 text-emerald-500" />,
-      skills: ["C++", "Data Analysis", "Object Oriented Programming", "Algorithms", "Runtime Optomization"],
-      iconBg: "bg-emerald-500/10",
-      videoUrl: "/videos/cpp-tool-demo.mp4",
-    },
-    {
-      id: "morse-code",
-      title: "Morse Code Device",
-      description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
-      icon: <Code className="h-8 w-8 text-purple-500" />,
-      skills: ["RISC-V", "Microprocessor", "Hardware", "Assembly", "Embeded Systems"],
-      iconBg: "bg-purple-500/10",
-      videoUrl: "/videos/morse-code-demo.mp4",
-    },
-    {
-      id: "ph-sensing",
-      title: "pH Sensing Device",
-      description:
-        "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
-      icon: <Code className="h-8 w-8 text-blue-500" />,
-      skills: ["C", "STM32", "Microcontroller", "Hardware Design", "Low Level Programming"],
-      iconBg: "bg-blue-500/10",
-      videoUrl: "/videos/ph-sensing-demo.mp4",
-    },
-    {
-      id: "qr-code",
-      title: "QR Code Application System",
-      description:
-        "Created a QR code connected to a form submission website that automatically populated a spreadsheet to optimize application process at career fairs for previous employer (Chandos).",
-      icon: <Code className="h-8 w-8 text-pink-500" />,
-      skills: ["Web Development", "QR Code", "Spreadsheet Automation"],
-      iconBg: "bg-pink-500/10",
-      videoUrl: "/videos/qr-code-demo.mp4",
-    },
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
-
-  const handleProjectClick = (projectId) => {
-    router.push(`/projects/${projectId}`)
-  }
-
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="section-shell">
       <div className="container px-4">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="max-w-6xl mx-auto"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+          }}
+          className="mx-auto max-w-6xl"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-            Projects & Achievements
-          </motion.h2>
+          <motion.div
+            variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
+            className="mb-11 grid gap-5 md:grid-cols-[1fr_0.75fr] md:items-end"
+          >
+            <div>
+              <p className="circuit-kicker">Selected engineering work</p>
+              <h2 className="section-heading mb-0">Projects</h2>
+            </div>
+            <p className="border-l border-primary/35 pl-5 text-lg leading-relaxed text-muted-foreground">
+              Systems work from real-time scheduling and concurrent networking to FPGA acceleration and orchestration.
+            </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {projects.map((project, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card
-                  className="h-full overflow-hidden border-none shadow-lg bg-white dark:bg-gray-800 rounded-2xl hover:shadow-xl transition-all duration-300 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
-                  onClick={() => handleProjectClick(project.id)}
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-6">
+            {featuredProjects.map((project, index) => {
+              const Icon = project.icon
+              const span = index === 0 ? "lg:col-span-4" : index === 1 ? "lg:col-span-2" : "lg:col-span-2"
+
+              return (
+                <motion.div
+                  key={project.id}
+                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+                  className={span}
                 >
-                  <CardContent className="p-6">
-                    <div className="flex justify-center mb-4">
-                      <div className={`p-3 rounded-full ${project.iconBg}`}>{project.icon}</div>
+                  <button
+                    type="button"
+                    className="group h-full w-full text-left"
+                    onClick={() => router.push(`/projects/${project.id}`)}
+                    aria-label={`View ${project.title}`}
+                  >
+                    <Card className="sharp-card h-full cursor-pointer">
+                      <CardContent className={`flex h-full min-h-[330px] flex-col p-6 ${index === 0 ? "md:min-h-[360px] md:p-8" : ""}`}>
+                        <div className="mb-8 flex items-start justify-between gap-4">
+                          <div className="circuit-icon flex h-12 w-12 items-center justify-center p-3">
+                            <Icon className="h-6 w-6" strokeWidth={1.6} />
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-semibold text-muted-foreground">0{index + 1}</span>
+                            <ArrowUpRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                          </div>
+                        </div>
+
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</p>
+                        <h3 className={`${index === 0 ? "text-3xl md:text-4xl" : "text-2xl"} mb-4 font-semibold leading-tight text-foreground`}>
+                          {project.title}
+                        </h3>
+                        <p className="mb-7 leading-relaxed text-muted-foreground">{project.description}</p>
+
+                        <div className="mt-auto flex flex-wrap gap-2 border-t border-border/65 pt-5">
+                          {project.skills.map((skill) => (
+                            <Badge key={skill} variant="outline" className="circuit-chip px-3 py-1 text-xs">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </button>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          <motion.div
+            id="project-archive"
+            variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
+            className="mb-6 mt-14 flex items-end justify-between gap-5 border-b border-primary/25 pb-4"
+          >
+            <div>
+              <p className="circuit-kicker mb-1">Additional builds</p>
+              <h3 className="text-2xl font-semibold text-foreground md:text-3xl">Project Archive</h3>
+            </div>
+            <span className="hidden text-sm text-muted-foreground sm:block">Six more systems and experiments</span>
+          </motion.div>
+
+          <div className="grid gap-px overflow-hidden border border-border/70 bg-border/70 md:grid-cols-2 lg:grid-cols-3">
+            {moreProjects.map((project, index) => {
+              const Icon = project.icon
+
+              return (
+                <motion.button
+                  key={project.id}
+                  type="button"
+                  variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45 } } }}
+                  className="group flex min-h-[280px] flex-col bg-background/75 p-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-card/95 md:p-6"
+                  onClick={() => router.push(`/projects/${project.id}`)}
+                  aria-label={`View ${project.title}`}
+                >
+                  <div className="mb-8 flex items-start justify-between gap-4">
+                    <div className="circuit-icon flex h-10 w-10 items-center justify-center">
+                      <Icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-semibold text-muted-foreground">{String(index + 6).padStart(2, "0")}</span>
+                      <ArrowUpRight className="h-4 w-4 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                    </div>
+                  </div>
 
-                    <h3 className="text-xl font-bold text-center mb-4">{project.title}</h3>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</p>
+                  <h4 className="mb-3 text-xl font-semibold leading-tight text-foreground">{project.title}</h4>
+                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
 
-                    <p className="text-muted-foreground text-center mb-6">{project.description}</p>
-
-                    <div className="flex flex-wrap justify-center gap-2 mt-auto">
-                      {project.skills.map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="outline"
-                          className="rounded-full px-3 py-1 text-xs bg-gray-50 dark:bg-gray-700"
-                        >
+                  {project.skills.length > 0 && (
+                    <div className="mt-auto flex flex-wrap gap-2 border-t border-border/65 pt-4">
+                      {project.skills.slice(0, 3).map((skill) => (
+                        <Badge key={skill} variant="outline" className="circuit-chip px-2.5 py-1 text-xs">
                           {skill}
                         </Badge>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                  )}
+                </motion.button>
+              )
+            })}
           </div>
-
-          <motion.div variants={itemVariants} className="mt-12">
-            <Card className="overflow-hidden border-none shadow-lg bg-white dark:bg-gray-800 rounded-2xl">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4">Additional Achievements</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="mr-2 mt-1">•</span>
-                    <span>
-                      UW President's scholarship for academic Excellence - $2,000 and various other scholarships for
-                      academic excellence, sports and community involvement valued at an additional $4,700
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 mt-1">•</span>
-                    <span>
-                      UW Formula Electric Design Team (full size electric race car)
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 mt-1">•</span>
-                    <span>
-                      Completed the Toronto Marathon in under 4 hours
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 mt-1">•</span>
-                    <span>
-                    Succesfully managed a personal trading portfolio for 3+ years, actively trading stocks and
-                    crypto; developed strong interest in DeFi and financial markets through hands-on experience
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
         </motion.div>
       </div>
     </section>

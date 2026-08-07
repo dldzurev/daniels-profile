@@ -1,34 +1,33 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export default function About() {
   return (
-    <section id="about" className="py-20 bg-muted/30">
+    <section id="about" className="section-shell">
       <div className="container px-4">
-        <Card className="overflow-hidden border-none shadow-lg bg-background rounded-2xl">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Other Interests</h3>
-            <div className="flex flex-wrap gap-2">
+        <div className="mx-auto grid max-w-6xl gap-8 border-y border-primary/25 py-10 md:grid-cols-[0.7fr_1.3fr] md:items-center md:py-14">
+          <div>
+            <p className="circuit-kicker">Off the clock</p>
+            <h2 className="section-heading mb-0">Other Interests</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
               {[
-                "Power Lifting",
-                "Piano",
-                "Fluent in Ukrainian",
+                "Marathon Running | 3:29",
+                "Powerlifting",
                 "Skiing",
-                "Passionate about Building",
-                "Jiu Jitsu", "Finance", "Endurance Training"
+                "Piano",
+                "Investing",
               ].map((interest) => (
                 <Badge
                   key={interest}
-                  className="rounded-full px-3 py-1 text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                  className="circuit-chip px-3 py-1 text-sm hover:bg-primary/10"
                 >
                   {interest}
                 </Badge>
               ))}
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -21,17 +21,17 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative w-14 h-7 flex items-center rounded-full p-1 cursor-pointer bg-gray-200 dark:bg-gray-700"
+      className="relative flex h-8 w-14 cursor-pointer items-center border border-border/80 bg-background/80 p-1 backdrop-blur-sm"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       <div className="absolute left-1.5 flex items-center justify-center">
-        <Sun className={`h-4 w-4 ${isDark ? "text-gray-400" : "text-gray-700"}`} />
+        <Sun className={`h-4 w-4 ${isDark ? "text-muted-foreground" : "text-primary"}`} />
       </div>
       <div className="absolute right-1.5 flex items-center justify-center">
-        <Moon className={`h-4 w-4 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
+        <Moon className={`h-4 w-4 ${isDark ? "text-primary" : "text-muted-foreground"}`} />
       </div>
       <div
-        className={`absolute bg-white dark:bg-gray-300 w-5 h-5 rounded-full shadow-md transition-transform duration-300 ${
+        className={`absolute h-5 w-5 border border-primary/40 bg-card shadow-sm transition-transform duration-300 ${
           isDark ? "transform translate-x-7" : ""
         }`}
       />

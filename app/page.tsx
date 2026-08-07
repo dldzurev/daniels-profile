@@ -11,19 +11,13 @@ import { Toaster } from "@/components/ui/toaster"
 import StatsBanner from "@/components/stats-banner"
 import ResumeButton from "@/components/resume-button"
 import SectionTransition from "@/components/section-transition"
-import ThreeDBackground from "@/components/3d-background"
 import BackgroundPattern from "@/components/background-pattern"
+import CircuitScroll from "@/components/circuit-scroll"
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
-      {/* 3D Background for hero section only */}
-      <div className="fixed top-0 left-0 w-full h-screen -z-10">
-        <ThreeDBackground />
-      </div>
-
-      {/* Background pattern for other sections */}
-      <div className="fixed top-0 left-0 w-full h-screen -z-20">
+    <main className="relative min-h-screen">
+      <div className="fixed left-0 top-0 -z-20 h-screen w-full">
         <BackgroundPattern />
       </div>
 
@@ -31,40 +25,38 @@ export default function Home() {
         <ResumeButton />
         <ModeToggle />
       </div>
+      <CircuitScroll />
 
       <ScrollToTop />
       <Toaster />
 
       <Hero />
 
-      {/* Gradient transition div */}
-      <div className="h-32 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900"></div>
-
-      <SectionTransition bgClass="bg-gray-50 dark:bg-gray-900">
+      <SectionTransition>
         <Experience />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-white dark:bg-gray-800">
+      <SectionTransition>
         <Projects />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-gray-50 dark:bg-gray-900">
+      <SectionTransition>
         <Skills />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-white dark:bg-gray-800">
+      <SectionTransition>
         <Education />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-gray-50 dark:bg-gray-900">
+      <SectionTransition>
         <StatsBanner />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-white dark:bg-gray-800">
+      <SectionTransition>
         <About />
       </SectionTransition>
 
-      <SectionTransition bgClass="bg-gray-50 dark:bg-gray-900">
+      <SectionTransition>
         <Contact />
       </SectionTransition>
     </main>

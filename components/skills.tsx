@@ -1,310 +1,99 @@
 "use client"
 
-
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Braces, Cpu, Network, Workflow } from "lucide-react"
+
+const skillGroups = [
+  {
+    id: "languages",
+    label: "Languages",
+    icon: Braces,
+    skills: ["C", "C++", "Python", "Bash", "SystemVerilog", "VHDL", "ARM Assembly", "C#", "SQL"],
+  },
+  {
+    id: "systems",
+    label: "Systems & Concurrency",
+    icon: Workflow,
+    skills: ["Linux", "POSIX", "System Calls", "Sockets", "pthreads", "Shared Memory", "Async I/O", "Event-Driven I/O"],
+  },
+  {
+    id: "networking",
+    label: "Networking",
+    icon: Network,
+    skills: ["TCP", "Ethernet", "ICMP", "SSH", "TFTP", "ARP", "OSPF", "BGP"],
+  },
+  {
+    id: "hardware",
+    label: "Hardware & Tools",
+    icon: Cpu,
+    skills: ["RISC-V", "FPGA", "USB Serial", "UART", "RS-232", "I2C", "Microcontrollers", "ADCs", "Git", "CMake", "Vivado"],
+  },
+]
 
 export default function Skills() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
-  const programmingSkills = [
-    "Python",
-    "C/C++",
-    "VHDL",
-    "RISC-V",
-    "SQL",
-    "HTML",
-    "CSS",
-    "C#",
-    "JavaScript/Typescript",
-  ]
-
-  const technologiesSkills = [
-    "Git",
-    "Linux",
-    "FastAPI",
-    ".NET",
-    "Flask",
-    "Docker",
-
-    "Matplotlib",
-
-    "BigQuery",
-    "GCP(Google cloud)",
-    "Pandas",
-    "Numpy",
-    "Scikit Learn",
-    "Deepeval",
-    "CMake",
-    "Command line",
-    "Agentic AI",
-    "Systems Programming",
-  ]
-
-  const softSkills = [
-    "Problem Solving",
-    "Team Collaboration",
-    "Communication",
-    "Project Management",
-    "Time Management",
-    "Leadership",
-    "Adaptability",
-    "Attention to Detail",
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section id="skills" className="py-20 bg-muted/30">
+    <section id="skills" className="section-shell">
       <div className="container px-4">
         <motion.div
           ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.65 }}
+          className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.68fr_1.32fr]"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-            Skills & Technologies
-          </motion.h2>
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <p className="circuit-kicker">Engineering toolkit</p>
+            <h2 className="section-heading">Skills & Technologies</h2>
+            <p className="max-w-sm border-l border-primary/35 pl-5 leading-relaxed text-muted-foreground">
+              Low-level software, networking, concurrency, and hardware systems built to work together.
+            </p>
+          </div>
 
-          <motion.div variants={itemVariants}>
-            <Card className="overflow-hidden border-none shadow-lg bg-background rounded-2xl">
-              <CardHeader>
-                <CardTitle className="text-xl text-center">Technical Proficiency</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="programming" className="w-full">
-                  <TabsList className="grid grid-cols-3 mb-6">
-                    <TabsTrigger value="programming">Programming</TabsTrigger>
-                    <TabsTrigger value="technologies">Technologies</TabsTrigger>
-                    <TabsTrigger value="soft">Soft Skills</TabsTrigger>
-                  </TabsList>
+          <Tabs defaultValue="languages" className="sharp-card p-4 sm:p-6">
+            <TabsList className="mb-7 grid h-auto grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
+              {skillGroups.map(({ id, label, icon: Icon }) => (
+                <TabsTrigger
+                  key={id}
+                  value={id}
+                  className="min-h-20 flex-col gap-2 border border-border/70 bg-background/45 px-3 py-3 text-xs data-[state=active]:border-primary/50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <Icon className="h-5 w-5" strokeWidth={1.6} />
+                  <span className="text-center leading-tight">{label}</span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
 
-                  <TabsContent value="programming" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {programmingSkills.map((name) => (
-                        <div key={name} className="flex justify-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium">{name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="technologies" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {technologiesSkills.map((name) => (
-                        <div key={name} className="flex justify-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium">{name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="soft" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {softSkills.map((name) => (
-                        <div key={name} className="flex justify-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium">{name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-          </motion.div>
+            {skillGroups.map(({ id, label, skills }) => (
+              <TabsContent key={id} value={id} className="mt-0 focus-visible:outline-none">
+                <div className="mb-5 flex items-end justify-between gap-4 border-b border-border/70 pb-4">
+                  <h3 className="text-2xl font-semibold text-foreground">{label}</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    {skills.length} skills
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {skills.map((skill, index) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.28, delay: index * 0.025 }}
+                      className="circuit-chip relative flex min-h-14 items-center px-4 text-sm font-medium"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 shrink-0 bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]" />
+                      {skill}
+                    </motion.div>
+                  ))}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
         </motion.div>
       </div>
     </section>
   )
 }
-
-/*
-import { motion } from "framer-motion"
-import { useInView } from "react-intersection-observer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-
-export default function Skills() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
-  const programmingSkills = [
-    { name: "Python", level: "Advanced", category: "Languages" },
-    { name: "C++", level: "Advanced", category: "Languages" },
-    { name: "SQL", level: "Intermediate", category: "Languages" },
-    { name: "HTML/CSS", level: "Intermediate", category: "Languages" },
-    { name: "JavaScript", level: "Intermediate", category: "Languages" },
-    { name: "C#", level: "Intermediate", category: "Languages" },
-    { name: "RISC-V", level: "Intermediate", category: "Languages" },
-    { name: "VHDL", level: "Basic", category: "Languages" },
-  ]
-
-  const technologiesSkills = [
-    { name: "Jupyter Notebooks", level: "Advanced", category: "Data Science" },
-    { name: "Pandas", level: "Advanced", category: "Data Science" },
-    { name: "Scikit-learn", level: "Advanced", category: "Data Science" },
-    { name: "Docker", level: "Intermediate", category: "DevOps" },
-    { name: "Google Cloud (GCP)", level: "Intermediate", category: "Cloud" },
-    { name: "Fast API", level: "Intermediate", category: "Backend" },
-    { name: "Vertex AI", level: "Intermediate", category: "AI" },
-    { name: "Git/Gitlab", level: "Advanced", category: "DevOps" },
-    { name: "Linux", level: "Intermediate", category: "OS" },
-    { name: "BigQuery", level: "Intermediate", category: "Data" },
-    { name: "Deepeval", level: "Intermediate", category: "AI" },
-  ]
-
-  const softSkills = [
-    { name: "Problem Solving", category: "Technical" },
-    { name: "Team Collaboration", category: "Interpersonal" },
-    { name: "Communication", category: "Interpersonal" },
-    { name: "Project Management", category: "Management" },
-    { name: "Time Management", category: "Management" },
-    { name: "Leadership", category: "Management" },
-    { name: "Adaptability", category: "Personal" },
-    { name: "Attention to Detail", category: "Technical" },
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
-
-  const getLevelColor = (level) => {
-    switch (level) {
-      case "Advanced":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-      case "Intermediate":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-      case "Basic":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-      default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
-    }
-  }
-
-  const getCategoryColor = (category) => {
-    const colors = {
-      Languages: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100",
-      "Data Science": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
-      DevOps: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
-      Cloud: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-100",
-      Backend: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100",
-      AI: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-100",
-      OS: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100",
-      Data: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
-      Technical: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-100",
-      Interpersonal: "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-100",
-      Management: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100",
-      Personal: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-100",
-    }
-    return colors[category] || "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
-  }
-
-  return (
-    <section id="skills" className="py-20 bg-muted/30">
-      <div className="container px-4">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="max-w-4xl mx-auto"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
-            Skills & Technologies
-          </motion.h2>
-
-          <motion.div variants={itemVariants}>
-            <Card className="overflow-hidden border-none shadow-lg bg-background rounded-2xl">
-              <CardHeader>
-                <CardTitle className="text-xl text-center">Technical Proficiency</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="programming" className="w-full">
-                  <TabsList className="grid grid-cols-3 mb-6">
-                    <TabsTrigger value="programming">Programming</TabsTrigger>
-                    <TabsTrigger value="technologies">Technologies</TabsTrigger>
-                    <TabsTrigger value="soft">Soft Skills</TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="programming" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {programmingSkills.map((skill) => (
-                        <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium mb-2">{skill.name}</span>
-                          <div className="flex gap-2 mt-1">
-                            <Badge className={`text-xs ${getLevelColor(skill.level)}`}>{skill.level}</Badge>
-                            <Badge className={`text-xs ${getCategoryColor(skill.category)}`}>{skill.category}</Badge>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="technologies" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {technologiesSkills.map((skill) => (
-                        <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium mb-2">{skill.name}</span>
-                          <div className="flex gap-2 mt-1">
-                            <Badge className={`text-xs ${getLevelColor(skill.level)}`}>{skill.level}</Badge>
-                            <Badge className={`text-xs ${getCategoryColor(skill.category)}`}>{skill.category}</Badge>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="soft" className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                      {softSkills.map((skill) => (
-                        <div key={skill.name} className="flex flex-col items-center p-4 rounded-xl bg-muted/30">
-                          <span className="font-medium mb-2">{skill.name}</span>
-                          <Badge className={`text-xs ${getCategoryColor(skill.category)}`}>{skill.category}</Badge>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-*/

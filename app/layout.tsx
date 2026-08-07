@@ -3,12 +3,9 @@ import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
-
-  title: "Daniel Dzurevych - Computer Engineering @ UWaterloo",
-
+  title: "Daniel Dzurevych | Computer Engineer",
   description:
-    "Portfolio website of Daniel Dzurevych, a Computer Engineering student at the University of Waterloo",
-    generator: 'v0.dev'
+    "Daniel Dzurevych is a Computer Engineering student at the University of Waterloo focused on systems, networking, and embedded control.",
 }
 
 export default function RootLayout({

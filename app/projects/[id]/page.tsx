@@ -1,301 +1,315 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Github } from "lucide-react"
+import { ArrowLeft, Clock3, ExternalLink, FileText, Github } from "lucide-react"
 import Link from "next/link"
-import VideoPlayer from "@/components/video-player"
 import { motion } from "framer-motion"
+import BackgroundPattern from "@/components/background-pattern"
+
+type Project = {
+  title: string
+  category: string
+  description: string
+  details: string[]
+  skills: string[]
+  githubUrl?: string
+  devpostUrl?: string
+  docsUrl?: string
+  mediaUrl?: string
+  comingSoon?: boolean
+}
+
+const projects: Record<string, Project> = {
+  "real-time-executive": {
+    title: "Real-Time Executive",
+    category: "Operating Systems",
+    description:
+      "A real-time executive built in C on an ARM Cortex-A9 and DE1-SoC, covering memory allocation, preemptive scheduling, and task lifecycle management.",
+    details: [],
+    skills: ["C", "ARM Cortex-A9", "DE1-SoC", "RTOS", "Preemptive Scheduling", "Memory Allocation"],
+    comingSoon: true,
+  },
+  "concurrent-network-systems": {
+    title: "Concurrent Network Systems",
+    category: "Systems & Networking",
+    description:
+      "A collection of concurrent C and Linux systems using process communication, synchronization, network I/O, and parallel execution.",
+    details: [],
+    skills: ["C", "Linux", "pthreads", "libcurl", "Pipes", "Shared Memory", "Sockets", "Async I/O"],
+    comingSoon: true,
+  },
+  "fpga-mvm-accelerator": {
+    title: "FPGA MVM Accelerator",
+    category: "Digital Hardware",
+    description:
+      "A parameterized SystemVerilog matrix-vector multiplication engine designed for high-throughput FPGA execution.",
+    details: [],
+    skills: ["SystemVerilog", "FPGA", "Vivado", "Pipelining", "FSM", "350+ MHz"],
+    comingSoon: true,
+  },
+  conductor: {
+    title: "Conductor",
+    category: "Software Orchestration",
+    description:
+      "A Python and FastAPI orchestration platform for automating end-to-end workflows across communication and productivity tools.",
+    details: [
+      "Built an orchestration backend in Python and FastAPI.",
+      "Automated workflows spanning Slack, Gmail, Notion, and AI voice agents.",
+      "Connected services through external APIs to coordinate multi-application workflows from one system.",
+    ],
+    skills: ["Python", "FastAPI", "Slack API", "Gmail API", "Notion API", "AI Voice Agents"],
+    githubUrl: "https://github.com/dldzurev/Spurhacks-2025",
+    devpostUrl: "https://devpost.com/software/conductor-65x9i7",
+    mediaUrl: "https://www.youtube.com/embed/V2578vWWx10?start=2",
+  },
+  "hackathon-winner": {
+    title: "$10,000 Hackathon Win",
+    category: "Applied AI",
+    description:
+      "A Chrome extension that turns Figma designs and account context into personalized company software tutorials.",
+    details: [
+      "Built the extension interface and workflow automation in JavaScript.",
+      "Used Vertex AI to generate personalized, company-templated tutorials.",
+      "Won the $10,000 grand prize by delivering a working business solution under hackathon constraints.",
+    ],
+    skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "Figma"],
+    mediaUrl: "/DSC_1061.JPG",
+  },
+  orchestrator: {
+    title: "Orchestrator",
+    category: "Financial Systems",
+    description:
+      "A no-code trading platform for building, running, and backtesting strategies across equities, crypto, and forex.",
+    details: [
+      "Built a visual strategy builder for defining market conditions, indicators, and buy or sell logic without code.",
+      "Implemented technical indicators and historical backtesting with Python, FastAPI, Pandas, and NumPy.",
+      "Connected real-time market data through Finnhub WebSocket streams with synthetic data generation for reliable offline testing.",
+    ],
+    skills: ["Python", "FastAPI", "JavaScript", "Pandas", "NumPy", "WebSockets", "Finnhub API", "Trading"],
+    githubUrl: "https://github.com/dldzurev/Orchestrator",
+    devpostUrl: "https://devpost.com/software/orchestrator",
+    mediaUrl: "/demo.mp4",
+  },
+  "context-co": {
+    title: "Context Co",
+    category: "Product / Software",
+    description: "Project page and supporting materials are being prepared.",
+    details: [],
+    skills: [],
+    comingSoon: true,
+  },
+  "cpp-data-analysis": {
+    title: "C++ Data Analysis Tool",
+    category: "Algorithms & Data",
+    description:
+      "A high-performance analysis tool that parses CSV data, constructs a graph, and supports constant-time hash lookup.",
+    details: [
+      "Designed graph and hash-based data structures for efficient traversal and O(1) key lookup.",
+      "Built a CSV ingestion pipeline and object-oriented analysis workflow in C++.",
+      "Validated performance and scalability with datasets containing up to two million data points.",
+    ],
+    skills: ["C++", "Data Analysis", "Object-Oriented Programming", "Algorithms", "Runtime Optimization"],
+    mediaUrl: "/Screenshot 2025-05-18 174344.png",
+  },
+  "morse-code": {
+    title: "Morse Code Device",
+    category: "Embedded Systems",
+    description: "A RISC-V microprocessor system that translates text input into Morse code displayed through an LED.",
+    details: [
+      "Programmed the text-to-Morse conversion logic for a RISC-V microprocessor.",
+      "Connected software output to an LED interface for timed visual signal playback.",
+      "Applied low-level programming and computer architecture concepts in a working embedded device.",
+    ],
+    skills: ["RISC-V", "Microprocessor", "Hardware", "Assembly", "Embedded Systems"],
+    mediaUrl: "/Image.jpeg",
+  },
+  "ph-sensing": {
+    title: "pH Sensing Device",
+    category: "Sensing & Hardware",
+    description: "An STM32-based device programmed in C to monitor pH measurements and detect irregular readings.",
+    details: [
+      "Integrated a pH sensor with an STM32 microcontroller and programmed the device in C.",
+      "Processed analog measurements and detected readings outside configured thresholds.",
+      "Designed and assembled a complete prototype for practical environmental monitoring.",
+    ],
+    skills: ["C", "STM32", "Microcontroller", "Hardware Design", "Low-Level Programming"],
+    docsUrl: "/Customer Definition_ (1).pdf",
+  },
+  "qr-code": {
+    title: "QR Code Application System",
+    category: "Workflow Automation",
+    description:
+      "A QR-based application workflow that automated form collection and spreadsheet entry for Chandos career fairs.",
+    details: [
+      "Connected QR codes to a custom form workflow for fast applicant intake at career fairs.",
+      "Automated spreadsheet population to remove manual entry and make applicant data immediately accessible.",
+      "Delivered a practical internal tool that simplified an existing recruiting process.",
+    ],
+    skills: ["Web Development", "QR Codes", "Form Workflows", "Spreadsheet Automation"],
+  },
+}
 
 export default function ProjectDetail() {
   const params = useParams()
   const router = useRouter()
-  const [project, setProject] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  // This would normally fetch from an API, but we'll use a static list for this example
-  useEffect(() => {
-    const projects = [
-      {
-        id: "conductor",
-        title: "Conductor",
-        description:
-          "An AI orchestration platform that automates workflows across your entire software ecosystem. Built with distributed AI orchestration, 3D avatar interface, and seamless integration across multiple enterprise platforms.",
-        skills: ["Next.js", "Python", "FastAPI", "Gemini AI", "React Flow", "Three.js", "Node.js", "Computer Vision"],
-        iconColor: "text-orange-500",
-        iconBg: "bg-orange-500/10",
-        githubUrl: "https://github.com/dldzurev/Spurhacks-2025",
-        devpostUrl: "https://devpost.com/software/conductor-65x9i7",
-        videoUrl: "https://www.youtube.com/watch?v=V2578vWWx10&t=2s",
-        detailedDescription: `
-          Conductor is a revolutionary AI operator that automates workflows across your entire software ecosystem. 
-          Enterprise workflows are fractured across dozens of disconnected platforms, forcing knowledge workers to 
-          waste countless hours on manual coordination tasks. We recognized that while AI excels within individual 
-          applications, it fails catastrophically when businesses need autonomous execution across their entire 
-          software ecosystem.
-          
-          Conductor revolutionizes enterprise automation through distributed AI orchestration that seamlessly 
-          coordinates complex workflows across 15+ business-critical platforms. Users design sophisticated visual 
-          workflows using our intuitive React Flow interface, then deploy intelligent multimodal agents that 
-          autonomously execute end-to-end processes spanning Gmail, Slack, Calendar, CRM systems, document management, 
-          and communication platforms.
-          
-          Our breakthrough 3D avatar with advanced computer vision provides real-time guidance and feedback while 
-          maintaining comprehensive audit trails and enterprise compliance standards throughout every automated workflow. 
-          Built in 36 hours, Conductor demonstrates how cutting-edge AI orchestration can transform enterprise productivity 
-          by eliminating the manual coordination bottlenecks that plague modern businesses.
-        `,
-      },
-      {
-        id: "orchestrator",
-        title: "Orchestrator",
-        description:
-          "No-code trading platform for equities, crypto, and forex with access to automated institutional-grade tools that enable you to trade like quant/HFT firms.",
-        skills: ["Python", "FastAPI", "JavaScript", "Pandas", "NumPy", "WebSockets", "Finnhub API", "Trading"],
-        iconColor: "text-blue-500",
-        iconBg: "bg-blue-500/10",
-        githubUrl: "https://github.com/dldzurev/Orchestrator",
-        devpostUrl: "https://devpost.com/software/orchestrator",
-        videoUrl: "/demo.mp4",
-        detailedDescription: `
-          ORCHESTRATOR is a no-code trading platform that empowers users to trade equities, crypto, and forex with 
-          the same tools used by quant and high-frequency trading (HFT) firms. Build visually — create strategies, 
-          define buy/sell logic, choose time ranges and conditions — then run and backtest them without writing a 
-          line of code.
-          
-          The platform features a strategy builder with drag-and-drop functionality, server-side implementations 
-          of technical indicators (SMA/EMA, Bollinger Bands, Z-scores, realized volatility), automation capabilities, 
-          and comprehensive backtesting with historical data. The system handles real market data through Finnhub 
-          WebSocket streams and provides fallback synthetic data generation for reliable offline testing.
-          
-          Built with Python + FastAPI backend and a single-page HTML/JS frontend using Lightweight-Charts, 
-          Orchestrator brings institutional-grade trading tools to non-programmers through an intuitive visual interface.
-        `,
-      },
-      {
-        id: "hackathon-winner",
-        title: "$10,000 Hackathon Winner",
-        description:
-          "Built a chrome extension connected to Vertex AI that automatically creates company templated dynamic tutorials from FIGMA designs, personalized based on account information.",
-        skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "FIGMA"],
-        iconColor: "text-yellow-500",
-        iconBg: "bg-yellow-500/10",
-        //githubUrl: "https://github.com",
-        videoUrl: "/DSC_1061.JPG",
-        detailedDescription: `
-          Won a $10,000 hackathon by developing a Chrome extension that leverages Vertex AI to automatically generate 
-          company-templated tutorials from FIGMA designs. The extension analyzes design elements and creates 
-          personalized tutorials based on user account information, significantly reducing the time required for 
-          creating documentation and onboarding materials.
-          
-          The solution uses Python for the backend processing, JavaScript for the Chrome extension, and integrates 
-          with Vertex AI for intelligent content generation. This project demonstrated my ability to quickly develop 
-          innovative solutions that solve real business problems.
-        `,
-      },
-      {
-        id: "cpp-data-analysis",
-        title: "C++ Data Analysis Tool",
-        description:
-          "Created a data analysis tool that parses CSV rows, builds a graph, and uses hashing for O(1) lookup. Successfully tested for up to 2 million data points.",
-        skills: ["C++", "Data Analysis", "Object Oriented Programming", "Algorithms", "Runtime Optomization"],
-        iconColor: "text-emerald-500",
-        iconBg: "bg-emerald-500/10",
-        //githubUrl: "https://github.com",
-        videoUrl: "/Screenshot 2025-05-18 174344.png",
-        detailedDescription: `
-          Developed a high-performance data analysis tool in C++ that efficiently processes large CSV datasets. 
-          The tool parses CSV rows, constructs a graph representation of the data, and implements a hash-based 
-          lookup system for O(1) time complexity queries.
-          
-          Performance testing confirmed the tool's scalability, successfully handling datasets with up to 2 million 
-          data points while maintaining fast response times. The implementation showcases advanced data structure 
-          knowledge and algorithm optimization techniques.
-        `,
-      },
-      {
-        id: "morse-code",
-        title: "Morse Code Device",
-        description: "Created a text to morse code device connected to an LED using a microprocessor with RISC-V.",
-        skills: ["RISC-V", "Microprocessor", "Hardware", "Assembly", "Embeded Systems"],
-        iconColor: "text-purple-500",
-        iconBg: "bg-purple-500/10",
-        //githubUrl: "https://github.com",
-        videoUrl: "/Image.jpeg",
-        detailedDescription: `
-          Designed and built a text-to-morse code converter device using a RISC-V microprocessor. The device 
-          takes text input and translates it into morse code, which is then visually displayed through an LED.
-          
-          This project combined hardware design with low-level programming, demonstrating my ability to work 
-          with microprocessors and implement communication protocols. The RISC-V architecture provided an 
-          excellent platform for learning about computer architecture and embedded systems programming.
-        `,
-      },
-      {
-        id: "ph-sensing",
-        title: "pH Sensing Device",
-        description:
-          "Designed, constructed and programmed a pH irregularity sensing device using STM32 microcontroller in C.",
-        skills: ["C", "STM32", "Microcontroller", "Hardware Design", "Low Level Programming"],
-        iconColor: "text-blue-500",
-        iconBg: "bg-blue-500/10",
-        //githubUrl: "",
-        //videoUrl: "",
-        docsUrl: "/Customer Definition_ (1).pdf",
-        detailedDescription: `
-          Designed, constructed, and programmed a pH irregularity sensing device using an STM32 microcontroller 
-          programmed in C. The device accurately measures and monitors pH levels, alerting users when readings 
-          fall outside of predefined parameters.
-          
-          This project involved sensor integration, analog-to-digital conversion, and implementing a responsive 
-          alert system. The completed device demonstrates practical applications of microcontroller programming 
-          and sensor technology in environmental monitoring.
-        `,
-      },
-      {
-        id: "qr-code",
-        title: "QR Code Application System",
-        description:
-          "Created a QR code connected to a form submission website that automatically populated a spreadsheet to optimize application process at career fairs for previous employer (Chandos).",
-        skills: ["Web Development", "QR Code", "Spreadsheet Automation"],
-        iconColor: "text-pink-500",
-        iconBg: "bg-pink-500/10",
-        //githubUrl: "",
-        //videoUrl: "",
-        detailedDescription: `
-          Developed a streamlined application system for Chandos that utilized QR codes to direct applicants to 
-          a custom-built form submission website. The system automatically populated a spreadsheet with applicant 
-          information, significantly optimizing the application process at career fairs.
-          
-          This solution eliminated manual data entry, reduced errors, and provided real-time access to applicant 
-          information. The project showcased my ability to identify inefficient processes and implement practical 
-          technological solutions that save time and improve data management.
-        `,
-      },
-    ]
-
-    const foundProject = projects.find((p) => p.id === params.id)
-    setProject(foundProject)
-    setLoading(false)
-  }, [params.id])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    )
-  }
+  const id = Array.isArray(params.id) ? params.id[0] : params.id
+  const project = id ? projects[id] : undefined
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-4">Project not found</h1>
-        <Button onClick={() => router.push("/#projects")}>
+      <main className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
+        <h1 className="mb-5 text-3xl font-semibold text-foreground">Project not found</h1>
+        <Button className="circuit-button-secondary" onClick={() => router.push("/#projects")}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
         </Button>
-      </div>
+      </main>
     )
   }
 
   return (
-    <div className="min-h-screen py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="container px-4 sm:px-6 max-w-4xl mx-auto">
-        <Button variant="ghost" className="mb-6" onClick={() => router.push("/#projects")}>
+    <main className="relative min-h-screen overflow-hidden py-10 md:py-16">
+      <div className="fixed inset-0 -z-20">
+        <BackgroundPattern />
+      </div>
+
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+        <Button variant="ghost" className="circuit-button-secondary mb-12" onClick={() => router.push("/#projects")}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
         </Button>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <Card className="border-none shadow-lg bg-white dark:bg-gray-800 rounded-2xl overflow-hidden mb-8">
-            <CardHeader className={`${project.iconBg} bg-opacity-30`}>
-              <CardTitle className="text-3xl font-bold text-center">{project.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {/* only render media if videoUrl is defined */}
-              {project.videoUrl && (
-                <div className="mb-8">
-                  {project.videoUrl.endsWith(".mp4") ? (
-                    <VideoPlayer src={project.videoUrl} />
-                  ) : project.videoUrl === "MYVIDEO" ? (
-                    <div className="relative w-full flex items-center justify-center" style={{ aspectRatio: "16/9" }}>
-                      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center w-full h-full">
-                        <span className="text-2xl font-bold text-gray-500 dark:text-gray-400">MYVIDEO</span>
-                      </div>
-                    </div>
-                  ) : project.videoUrl.includes("youtube.com") || project.videoUrl.includes("youtu.be") ? (
-                    <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
-                      <iframe
-                        src={project.videoUrl.replace("watch?v=", "embed/").replace("&t=", "?start=")}
-                        title={project.title}
-                        className="absolute top-0 left-0 w-full h-full rounded-lg"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    </div>
-                  ) : (
-                    <img
-                      src={project.videoUrl}
-                      alt={project.title}
-                      className="block mx-auto w-3/4 h-auto rounded-lg"
-                    />
-                  )}
+        <motion.header
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          className="mb-12 max-w-4xl"
+        >
+          <p className="circuit-kicker">{project.category}</p>
+          <h1 className="section-heading mb-6 text-5xl md:text-7xl">{project.title}</h1>
+          <p className="max-w-3xl border-l border-primary/40 pl-5 text-xl leading-relaxed text-muted-foreground">
+            {project.description}
+          </p>
+        </motion.header>
+
+        {project.comingSoon ? (
+          <motion.section
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className="sharp-card relative flex min-h-[430px] overflow-hidden"
+          >
+            <div className="absolute inset-x-0 top-1/2 h-px bg-primary/15" aria-hidden="true" />
+            <div className="absolute bottom-0 left-1/3 top-0 w-px bg-primary/10" aria-hidden="true" />
+            <div className="relative m-auto max-w-2xl px-6 py-16 text-center md:px-12">
+              <div className="circuit-icon mx-auto mb-7 flex h-14 w-14 items-center justify-center">
+                <Clock3 className="h-6 w-6" strokeWidth={1.5} />
+              </div>
+              <p className="circuit-kicker">Documentation in progress</p>
+              <h2 className="mb-4 text-3xl font-semibold text-foreground md:text-4xl">Project page to be updated</h2>
+              <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground">
+                A complete write-up, architecture breakdown, and demo will be added here soon.
+              </p>
+              {project.skills.length > 0 && (
+                <div className="mt-8 flex flex-wrap justify-center gap-2 border-t border-border/70 pt-7">
+                  {project.skills.map((skill) => (
+                    <Badge key={skill} className="circuit-chip px-3 py-1.5">
+                      {skill}
+                    </Badge>
+                  ))}
                 </div>
               )}
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Overview</h3>
-                  <p className="text-muted-foreground">{project.description}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Details</h3>
-                  <p className="text-muted-foreground whitespace-pre-line">{project.detailedDescription}</p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((skill) => (
-                      <Badge key={skill} className="rounded-full px-3 py-1">
-                        {skill}
-                      </Badge>
-                    ))}
+            </div>
+          </motion.section>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_310px]"
+          >
+            <div className="space-y-7">
+            {project.mediaUrl && (
+              <div className="sharp-card overflow-hidden p-2">
+                {project.mediaUrl.startsWith("https://www.youtube.com/embed") ? (
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <iframe
+                      src={project.mediaUrl}
+                      title={project.title}
+                      className="absolute inset-0 h-full w-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
                   </div>
-                </div>
+                ) : project.mediaUrl.endsWith(".mp4") ? (
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <video src={project.mediaUrl} controls preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+                  </div>
+                ) : (
+                  <img src={project.mediaUrl} alt={project.title} className="aspect-video w-full object-cover" />
+                )}
+              </div>
+            )}
+
+            <section className="sharp-card p-6 md:p-8">
+              <div className="mb-7 flex items-center justify-between border-b border-border/70 pb-5">
+                <h2 className="text-2xl font-semibold text-foreground">Build Details</h2>
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{project.details.length} highlights</span>
+              </div>
+              <ul className="space-y-6">
+                {project.details.map((detail, index) => (
+                  <li key={detail} className="grid grid-cols-[32px_1fr] gap-4 leading-relaxed">
+                    <span className="flex h-8 w-8 items-center justify-center border border-primary/30 bg-primary/5 text-xs font-semibold text-primary">
+                      0{index + 1}
+                    </span>
+                    <span className="pt-1 text-foreground/90">{detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <aside className="lg:sticky lg:top-8 lg:self-start">
+            <div className="sharp-card p-6">
+              <h2 className="mb-5 text-lg font-semibold text-foreground">Technologies</h2>
+              <div className="flex flex-wrap gap-2">
+                {project.skills.map((skill) => (
+                  <Badge key={skill} className="circuit-chip px-3 py-1.5">
+                    {skill}
+                  </Badge>
+                ))}
               </div>
 
-              {/* only render buttons if there are URLs */}
-              {(project.githubUrl || project.docsUrl || project.devpostUrl) && (
-                <div className="pt-4 flex flex-wrap gap-3">
+              {(project.githubUrl || project.devpostUrl || project.docsUrl) && (
+                <div className="mt-7 space-y-3 border-t border-border/70 pt-6">
                   {project.githubUrl && (
-                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="gap-2">
-                        <Github className="h-4 w-4" /> View Code on GitHub
+                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="circuit-button w-full justify-between">
+                        GitHub <Github className="h-4 w-4" />
                       </Button>
                     </Link>
                   )}
                   {project.devpostUrl && (
-                    <Link href={project.devpostUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="gap-2">
-                        <span className="text-sm font-medium">Devpost</span>
+                    <Link href={project.devpostUrl} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="circuit-button-secondary w-full justify-between">
+                        Devpost <ExternalLink className="h-4 w-4" />
                       </Button>
                     </Link>
                   )}
                   {project.docsUrl && (
-                    <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline">Project Docs</Button>
+                    <Link href={project.docsUrl} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="circuit-button-secondary w-full justify-between">
+                        Project Docs <FileText className="h-4 w-4" />
+                      </Button>
                     </Link>
                   )}
                 </div>
               )}
-            </CardContent>
-          </Card>
-        </motion.div>
+            </div>
+          </aside>
+          </motion.div>
+        )}
       </div>
-    </div>
+    </main>
   )
 }

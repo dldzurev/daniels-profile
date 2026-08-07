@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -27,12 +27,12 @@ export default function Contact() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
 
@@ -88,7 +88,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="section-shell">
       <div className="container px-4">
         <motion.div
           ref={ref}
@@ -97,20 +97,20 @@ export default function Contact() {
           variants={containerVariants}
           className="max-w-5xl mx-auto"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold mb-8 text-center">
+          <motion.h2 variants={itemVariants} className="section-heading">
             Get In Touch
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <motion.div variants={itemVariants}>
-              <Card className="h-full overflow-hidden border-none shadow-lg bg-background rounded-2xl">
+              <Card className="sharp-card h-full">
                 <CardHeader>
-                  <CardTitle className="text-xl">Contact Information</CardTitle>
+                  <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">Contact Information</CardTitle>
                   <CardDescription>Feel free to reach out through any of these channels</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-primary/10 mr-4">
+                    <div className="circuit-icon mr-4 p-2">
                       <Mail className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -125,7 +125,7 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-primary/10 mr-4">
+                    <div className="circuit-icon mr-4 p-2">
                       <Linkedin className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -143,7 +143,7 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-primary/10 mr-4">
+                    <div className="circuit-icon mr-4 p-2">
                       <Github className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -160,13 +160,14 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-primary/10 mr-4">
+                    <div className="circuit-icon mr-4 p-2">
                       <MapPin className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium">Waterloo, Ontario, Canada</p>
                       <p className="font-medium">Toronto, Ontario, Canada</p>
+                      <p className="font-medium">San Francisco, California, USA</p>
                     </div>
                   </div>
                 </CardContent>
@@ -174,9 +175,9 @@ export default function Contact() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card className="h-full overflow-hidden border-none shadow-lg bg-background rounded-2xl">
+              <Card className="sharp-card h-full">
                 <CardHeader>
-                  <CardTitle className="text-xl">Send Me a Message</CardTitle>
+                  <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">Send Me a Message</CardTitle>
                   <CardDescription>I'll get back to you as soon as possible</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -193,7 +194,7 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="rounded-lg"
+                          className="rounded-md border-border/80 bg-card/70"
                         />
                       </div>
                       <div className="space-y-2">
@@ -208,7 +209,7 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="rounded-lg"
+                          className="rounded-md border-border/80 bg-card/70"
                         />
                       </div>
                     </div>
@@ -224,7 +225,7 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="rounded-lg"
+                        className="rounded-md border-border/80 bg-card/70"
                       />
                     </div>
 
@@ -239,11 +240,11 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        className="min-h-[120px] rounded-lg"
+                        className="min-h-[120px] rounded-md border-border/80 bg-card/70"
                       />
                     </div>
 
-                    <Button type="submit" className="w-full rounded-lg" disabled={isSubmitting}>
+                    <Button type="submit" className="circuit-button w-full" disabled={isSubmitting}>
                       {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
