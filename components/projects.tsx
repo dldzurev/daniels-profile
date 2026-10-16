@@ -22,6 +22,70 @@ import { useRouter } from "next/navigation"
 
 const featuredProjects = [
   {
+    id: "conductor",
+    title: "Conductor",
+    category: "Software Orchestration",
+    description:
+      "Built a Python and FastAPI orchestration platform that automates end-to-end workflows across Slack, Gmail, Notion, and AI voice agents through external APIs.",
+    icon: Braces,
+    skills: ["Python", "FastAPI", "Slack API", "Gmail API", "Notion API", "AI Voice Agents"],
+  },
+  {
+    id: "context-co",
+    title: "Context Companion",
+    category: "Product / Software",
+    description:
+      "A context-aware AI agent for VS Code that brings codebase knowledge, Slack, Jira, and Confluence into one unified developer workflow.",
+    icon: Layers3,
+    skills: ["TypeScript", "Python", "FastAPI", "Gemini", "MCP", "VS Code API"],
+  },
+  {
+    id: "orchestrator",
+    title: "Orchestrator",
+    category: "Financial Systems",
+    description: "A no-code trading platform for building, running, and backtesting strategies across equities, crypto, and forex.",
+    icon: TrendingUp,
+    skills: ["Python", "FastAPI", "JavaScript", "Pandas", "WebSockets"],
+  },
+  {
+    id: "hackathon-winner",
+    title: "$10,000 Hackathon Win",
+    category: "Applied AI",
+    description:
+      "Built a Chrome extension that generates personalized company software tutorials from Figma designs and account context using Vertex AI.",
+    icon: Trophy,
+    skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "Figma"],
+  },
+  {
+    id: "morse-code",
+    title: "Morse Code Device",
+    category: "Embedded Systems",
+    description: "A RISC-V microprocessor system that translates text input into Morse code displayed through an LED.",
+    icon: Radio,
+    skills: ["RISC-V", "Assembly", "Embedded Systems", "Hardware"],
+  },
+  {
+    id: "fpga-mvm-accelerator",
+    title: "FPGA MVM Accelerator",
+    category: "Digital Hardware · ECE 327",
+    description:
+      "A BrainWave-style matrix-vector engine with banked memories, configurable output lanes, and pipelined 8-wide dot products; verified in Vivado at 350+ MHz.",
+    icon: Cpu,
+    skills: ["SystemVerilog", "Vivado", "FPGA", "Pipelining", "Memory Banking", "350+ MHz"],
+  },
+  {
+    id: "cpp-data-analysis",
+    title: "C++ Data Analysis Tool",
+    category: "Algorithms & Data",
+    description:
+      "A graph-based CSV analysis engine with custom hash-indexed lookup and performance validated on datasets containing up to two million points.",
+    icon: Database,
+    skills: ["C++", "Graph Algorithms", "Hashing", "CSV Processing", "Performance"],
+  },
+]
+
+const moreProjects = [
+  {
     id: "real-time-executive",
     title: "Real-Time Executive",
     category: "Operating Systems",
@@ -38,68 +102,6 @@ const featuredProjects = [
       "Built C and Linux systems using pthreads, libcurl, pipes and shared-memory IPC, synchronization, sockets, parallel web crawling, and asynchronous event-driven I/O.",
     icon: Network,
     skills: ["C", "Linux", "pthreads", "libcurl", "Shared Memory", "Sockets", "Async I/O"],
-  },
-  {
-    id: "fpga-mvm-accelerator",
-    title: "FPGA MVM Accelerator",
-    category: "Digital Hardware",
-    description:
-      "Built a parameterized SystemVerilog matrix-vector multiplication engine with pipelined 8-lane dot-product units, memory buffers, accumulators, and FSM control; verified in Vivado at 350+ MHz.",
-    icon: Cpu,
-    skills: ["SystemVerilog", "FPGA", "Vivado", "Pipelining", "FSM", "350+ MHz"],
-  },
-  {
-    id: "conductor",
-    title: "Conductor",
-    category: "Software Orchestration",
-    description:
-      "Built a Python and FastAPI orchestration platform that automates end-to-end workflows across Slack, Gmail, Notion, and AI voice agents through external APIs.",
-    icon: Braces,
-    skills: ["Python", "FastAPI", "Slack API", "Gmail API", "Notion API", "AI Voice Agents"],
-  },
-  {
-    id: "hackathon-winner",
-    title: "$10,000 Hackathon Win",
-    category: "Applied AI",
-    description:
-      "Built a Chrome extension that generates personalized company software tutorials from Figma designs and account context using Vertex AI.",
-    icon: Trophy,
-    skills: ["Python", "JavaScript", "Vertex AI", "Chrome Extension", "Figma"],
-  },
-]
-
-const moreProjects = [
-  {
-    id: "orchestrator",
-    title: "Orchestrator",
-    category: "Financial Systems",
-    description: "A no-code trading platform for building, running, and backtesting strategies across equities, crypto, and forex.",
-    icon: TrendingUp,
-    skills: ["Python", "FastAPI", "JavaScript", "Pandas", "WebSockets"],
-  },
-  {
-    id: "context-co",
-    title: "Context Co",
-    category: "Product / Software",
-    description: "Project page and supporting materials are being prepared.",
-    icon: Layers3,
-    skills: [],
-  },
-  {
-    id: "cpp-data-analysis",
-    title: "C++ Data Analysis Tool",
-    category: "Algorithms & Data",
-    description: "A graph-based CSV analysis tool with constant-time hash lookup, tested with up to two million data points.",
-    icon: Database,
-    skills: ["C++", "Data Structures", "Hashing", "Performance"],
-  },
-  {
-    id: "morse-code",
-    title: "Morse Code Device",
-    category: "Embedded Systems",
-    description: "A RISC-V microprocessor system that translates text input into Morse code displayed through an LED.",
-    icon: Radio,
-    skills: ["RISC-V", "Assembly", "Embedded Systems", "Hardware"],
   },
   {
     id: "ph-sensing",
@@ -138,13 +140,13 @@ export default function Projects() {
         >
           <motion.div
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
-            className="mb-11 grid gap-5 md:grid-cols-[1fr_0.75fr] md:items-end"
+            className="mb-14 grid gap-7 md:grid-cols-[1fr_0.75fr] md:items-end"
           >
             <div>
               <p className="circuit-kicker">Selected engineering work</p>
               <h2 className="section-heading mb-0">Projects</h2>
             </div>
-            <p className="border-l border-primary/35 pl-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="text-lg leading-relaxed tracking-[-0.015em] text-muted-foreground">
               Systems work from real-time scheduling and concurrent networking to FPGA acceleration and orchestration.
             </p>
           </motion.div>
@@ -152,7 +154,13 @@ export default function Projects() {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-6">
             {featuredProjects.map((project, index) => {
               const Icon = project.icon
-              const span = index === 0 ? "lg:col-span-4" : index === 1 ? "lg:col-span-2" : "lg:col-span-2"
+              const span = index === 0
+                ? "lg:col-span-4"
+                : index === 1
+                  ? "lg:col-span-2"
+                  : index >= featuredProjects.length - 2
+                    ? "lg:col-span-3"
+                    : "lg:col-span-2"
 
               return (
                 <motion.div
@@ -166,31 +174,33 @@ export default function Projects() {
                     onClick={() => router.push(`/projects/${project.id}`)}
                     aria-label={`View ${project.title}`}
                   >
-                    <Card className="sharp-card h-full cursor-pointer">
+                    <Card className="sharp-card h-full cursor-pointer before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:origin-left before:scale-x-0 before:bg-primary before:transition-transform before:duration-300 group-hover:before:scale-x-100">
                       <CardContent className={`flex h-full min-h-[330px] flex-col p-6 ${index === 0 ? "md:min-h-[360px] md:p-8" : ""}`}>
                         <div className="mb-8 flex items-start justify-between gap-4">
                           <div className="circuit-icon flex h-12 w-12 items-center justify-center p-3">
                             <Icon className="h-6 w-6" strokeWidth={1.6} />
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-xs font-semibold text-muted-foreground">0{index + 1}</span>
+                            <span className="font-mono text-[10px] text-muted-foreground">0{index + 1}</span>
                             <ArrowUpRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
                           </div>
                         </div>
 
                         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</p>
-                        <h3 className={`${index === 0 ? "text-3xl md:text-4xl" : "text-2xl"} mb-4 font-semibold leading-tight text-foreground`}>
+                        <h3 className={`${index === 0 ? "text-3xl md:text-4xl" : "text-2xl"} mb-4 font-semibold leading-tight tracking-[-0.035em] text-foreground`}>
                           {project.title}
                         </h3>
                         <p className="mb-7 leading-relaxed text-muted-foreground">{project.description}</p>
 
-                        <div className="mt-auto flex flex-wrap gap-2 border-t border-border/65 pt-5">
-                          {project.skills.map((skill) => (
-                            <Badge key={skill} variant="outline" className="circuit-chip px-3 py-1 text-xs">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
+                        {project.skills.length > 0 && (
+                          <div className="mt-auto flex flex-wrap gap-2 border-t border-border/65 pt-5">
+                            {project.skills.map((skill) => (
+                              <Badge key={skill} variant="outline" className="circuit-chip px-3 py-1 text-xs">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </button>
@@ -202,16 +212,16 @@ export default function Projects() {
           <motion.div
             id="project-archive"
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
-            className="mb-6 mt-14 flex items-end justify-between gap-5 border-b border-primary/25 pb-4"
+            className="mb-6 mt-16 flex items-end justify-between gap-5 border-b border-border pb-5"
           >
             <div>
               <p className="circuit-kicker mb-1">Additional builds</p>
-              <h3 className="text-2xl font-semibold text-foreground md:text-3xl">Project Archive</h3>
+              <h3 className="text-2xl font-semibold tracking-[-0.03em] text-foreground md:text-3xl">Project Archive</h3>
             </div>
-            <span className="hidden text-sm text-muted-foreground sm:block">Six more systems and experiments</span>
+            <span className="hidden text-sm text-muted-foreground sm:block">More systems and experiments</span>
           </motion.div>
 
-          <div className="grid gap-px overflow-hidden border border-border/70 bg-border/70 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-border/80 bg-border/80 shadow-sm md:grid-cols-2 lg:grid-cols-3">
             {moreProjects.map((project, index) => {
               const Icon = project.icon
 
@@ -220,7 +230,7 @@ export default function Projects() {
                   key={project.id}
                   type="button"
                   variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45 } } }}
-                  className="group flex min-h-[280px] flex-col bg-background/75 p-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-card/95 md:p-6"
+                  className="group flex min-h-[280px] flex-col bg-card/90 p-5 text-left backdrop-blur-sm transition-colors duration-300 hover:bg-primary/[0.045] md:p-6"
                   onClick={() => router.push(`/projects/${project.id}`)}
                   aria-label={`View ${project.title}`}
                 >
@@ -229,13 +239,15 @@ export default function Projects() {
                       <Icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-semibold text-muted-foreground">{String(index + 6).padStart(2, "0")}</span>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        {String(featuredProjects.length + index + 1).padStart(2, "0")}
+                      </span>
                       <ArrowUpRight className="h-4 w-4 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
                     </div>
                   </div>
 
                   <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{project.category}</p>
-                  <h4 className="mb-3 text-xl font-semibold leading-tight text-foreground">{project.title}</h4>
+                  <h4 className="mb-3 text-xl font-semibold leading-tight tracking-[-0.025em] text-foreground">{project.title}</h4>
                   <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
 
                   {project.skills.length > 0 && (

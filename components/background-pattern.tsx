@@ -2,17 +2,15 @@
 
 import { useEffect, useRef } from "react"
 
-type Point = { x: number; y: number }
-
-type Trace = {
-  points: Point[]
-  length: number
-  offset: number
+type Node = {
+  x: number
+  y: number
+  phase: number
   speed: number
-  warm: boolean
+  range: number
+  size: number
+  accent: boolean
 }
-
-const GRID = 72
 
 function seededRandom(seed: number) {
   let value = seed
@@ -22,104 +20,36 @@ function seededRandom(seed: number) {
   }
 }
 
-function traceLength(points: Point[]) {
-  return points.slice(1).reduce((total, point, index) => {
-    const previous = points[index]
-    return total + Math.abs(point.x - previous.x) + Math.abs(point.y - previous.y)
-  }, 0)
-}
-
-function pointOnTrace(trace: Trace, distance: number) {
-  let remaining = ((distance % trace.length) + trace.length) % trace.length
-
-  for (let index = 1; index < trace.points.length; index += 1) {
-    const start = trace.points[index - 1]
-    const end = trace.points[index]
-    const segmentLength = Math.abs(end.x - start.x) + Math.abs(end.y - start.y)
-
-    if (remaining <= segmentLength) {
-      const progress = segmentLength === 0 ? 0 : remaining / segmentLength
-      return {
-        x: start.x + (end.x - start.x) * progress,
-        y: start.y + (end.y - start.y) * progress,
-      }
-    }
-
-    remaining -= segmentLength
-  }
-
-  return trace.points[trace.points.length - 1]
-}
-
-function createTraces(width: number, height: number) {
-  const random = seededRandom(Math.round(width + height) * 19)
-  const traces: Trace[] = []
-  const count = Math.max(18, Math.ceil((width * height) / 62000))
-
-  for (let index = 0; index < count; index += 1) {
-    const horizontal = index % 3 !== 0
-    const startX = Math.floor(random() * (width / GRID + 2)) * GRID - GRID
-    const startY = Math.floor(random() * (height / GRID + 2)) * GRID - GRID
-    const direction = random() > 0.5 ? 1 : -1
-    const reach = GRID * (2 + Math.floor(random() * 4))
-    const bend = GRID * (1 + Math.floor(random() * 2)) * (random() > 0.5 ? 1 : -1)
-    const tail = GRID * (1 + Math.floor(random() * 3)) * direction
-    const points = horizontal
-      ? [
-          { x: startX, y: startY },
-          { x: startX + reach * direction, y: startY },
-          { x: startX + reach * direction, y: startY + bend },
-          { x: startX + reach * direction + tail, y: startY + bend },
-        ]
-      : [
-          { x: startX, y: startY },
-          { x: startX, y: startY + reach * direction },
-          { x: startX + bend, y: startY + reach * direction },
-          { x: startX + bend, y: startY + reach * direction + tail },
-        ]
-
-    traces.push({
-      points,
-      length: traceLength(points),
-      offset: random() * 900,
-      speed: 22 + random() * 32,
-      warm: index % 5 === 0,
-    })
-  }
-
-  return traces
-}
-
-function drawTrace(context: CanvasRenderingContext2D, trace: Trace, yShift: number) {
-  context.beginPath()
-  trace.points.forEach((point, index) => {
-    const y = point.y + yShift
-    if (index === 0) context.moveTo(point.x, y)
-    else context.lineTo(point.x, y)
-  })
-  context.stroke()
-}
-
 export default function BackgroundPattern() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    const context = canvas?.getContext("2d")
+    if (!canvas || !context) return
 
-    const context = canvas.getContext("2d")
-    if (!context) return
-
-    const pointer = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.45 }
-    const easedPointer = { ...pointer }
-    let pointerVisible = false
-    let width = 0
-    let height = 0
-    let traces: Trace[] = []
-    let scrollY = window.scrollY
-    let animationFrame = 0
-    let isDark = document.documentElement.classList.contains("dark")
+    const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2, visible: false }
+    const eased = { x: pointer.x, y: pointer.y }
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    let width = window.innerWidth
+    let height = window.innerHeight
+    let nodes: Node[] = []
+    let frame = 0
+    let isDark = document.documentElement.classList.contains("dark")
+
+    const createNodes = () => {
+      const random = seededRandom(Math.round(width * 3.7 + height * 7.1))
+      const count = Math.min(74, Math.max(34, Math.round((width * height) / 21000)))
+      nodes = Array.from({ length: count }, (_, index) => ({
+        x: random() * width,
+        y: random() * height,
+        phase: random() * Math.PI * 2,
+        speed: 0.22 + random() * 0.38,
+        range: 5 + random() * 12,
+        size: index % 9 === 0 ? 1.8 : 0.8 + random() * 0.7,
+        accent: index % 8 === 0,
+      }))
+    }
 
     const resize = () => {
       const ratio = Math.min(window.devicePixelRatio || 1, 2)
@@ -130,104 +60,119 @@ export default function BackgroundPattern() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
-      traces = createTraces(width, height + GRID * 2)
+      createNodes()
     }
 
     const handlePointerMove = (event: PointerEvent) => {
       pointer.x = event.clientX
       pointer.y = event.clientY
-      pointerVisible = true
+      pointer.visible = true
       document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`)
       document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`)
     }
 
     const handlePointerLeave = () => {
-      pointerVisible = false
-    }
-
-    const handleScroll = () => {
-      scrollY = window.scrollY
+      pointer.visible = false
     }
 
     const themeObserver = new MutationObserver(() => {
       isDark = document.documentElement.classList.contains("dark")
     })
 
-    const draw = (time: number) => {
-      easedPointer.x += (pointer.x - easedPointer.x) * 0.12
-      easedPointer.y += (pointer.y - easedPointer.y) * 0.12
+    const render = (timestamp: number) => {
+      const time = reducedMotion ? 0 : timestamp / 1000
+      eased.x += (pointer.x - eased.x) * 0.09
+      eased.y += (pointer.y - eased.y) * 0.09
       context.clearRect(0, 0, width, height)
 
-      const yShift = -((scrollY * 0.035) % GRID)
-      const baseColor = isDark ? "rgba(167, 215, 198, 0.13)" : "rgba(24, 79, 66, 0.13)"
-      const nodeColor = isDark ? "rgba(218, 187, 133, 0.28)" : "rgba(132, 83, 40, 0.24)"
-      const signalGreen = isDark ? "rgba(176, 238, 214, 0.94)" : "rgba(27, 111, 91, 0.86)"
-      const signalWarm = isDark ? "rgba(238, 196, 128, 0.9)" : "rgba(157, 93, 39, 0.8)"
+      const positions = nodes.map((node) => {
+        let x = node.x + Math.sin(time * node.speed + node.phase) * node.range
+        let y = node.y + Math.cos(time * node.speed * 0.78 + node.phase) * node.range
 
-      context.lineCap = "square"
-      context.lineJoin = "miter"
-      context.lineWidth = 1
-      context.strokeStyle = baseColor
-      traces.forEach((trace) => drawTrace(context, trace, yShift))
+        if (pointer.visible) {
+          const dx = eased.x - x
+          const dy = eased.y - y
+          const distance = Math.hypot(dx, dy)
+          if (distance < 280) {
+            const pull = (1 - distance / 280) * 0.105
+            x += dx * pull
+            y += dy * pull
+          }
+        }
 
-      context.fillStyle = nodeColor
-      traces.forEach((trace) => {
-        trace.points.slice(1, -1).forEach((point) => {
-          context.fillRect(point.x - 2, point.y + yShift - 2, 4, 4)
-        })
+        return { x, y, node }
       })
 
-      if (pointerVisible) {
-        const glow = context.createRadialGradient(
-          easedPointer.x,
-          easedPointer.y,
-          12,
-          easedPointer.x,
-          easedPointer.y,
-          260,
-        )
-        glow.addColorStop(0, isDark ? "rgba(176, 238, 214, 0.88)" : "rgba(18, 104, 82, 0.72)")
-        glow.addColorStop(0.45, isDark ? "rgba(176, 238, 214, 0.3)" : "rgba(18, 104, 82, 0.25)")
-        glow.addColorStop(1, "rgba(18, 104, 82, 0)")
-        context.save()
-        context.globalCompositeOperation = "lighter"
-        context.lineWidth = 1.8
-        context.strokeStyle = glow
-        traces.forEach((trace) => drawTrace(context, trace, yShift))
-        context.restore()
+      const baseLine = isDark ? "136, 143, 154" : "115, 119, 126"
+      const accentLine = isDark ? "105, 177, 255" : "35, 131, 226"
+
+      for (let index = 0; index < positions.length; index += 1) {
+        for (let otherIndex = index + 1; otherIndex < positions.length; otherIndex += 1) {
+          const a = positions[index]
+          const b = positions[otherIndex]
+          const distance = Math.hypot(a.x - b.x, a.y - b.y)
+          if (distance > 128) continue
+
+          context.beginPath()
+          context.moveTo(a.x, a.y)
+          context.lineTo(b.x, b.y)
+          context.lineWidth = 0.65
+          context.strokeStyle = `rgba(${baseLine}, ${(1 - distance / 128) * (isDark ? 0.12 : 0.1)})`
+          context.stroke()
+        }
       }
 
-      traces.forEach((trace) => {
-        const travel = reducedMotion ? trace.offset : time * (trace.speed / 1000) + trace.offset + scrollY * 0.18
-        const signal = pointOnTrace(trace, travel)
-        const x = signal.x
-        const y = signal.y + yShift
-        if (x < -20 || x > width + 20 || y < -20 || y > height + 20) return
+      if (pointer.visible) {
+        const glow = context.createRadialGradient(eased.x, eased.y, 0, eased.x, eased.y, 260)
+        glow.addColorStop(0, `rgba(${accentLine}, ${isDark ? 0.12 : 0.1})`)
+        glow.addColorStop(0.5, `rgba(${accentLine}, ${isDark ? 0.045 : 0.035})`)
+        glow.addColorStop(1, `rgba(${accentLine}, 0)`)
+        context.fillStyle = glow
+        context.fillRect(eased.x - 260, eased.y - 260, 520, 520)
 
-        context.save()
-        context.shadowBlur = pointerVisible ? 13 : 8
-        context.shadowColor = trace.warm ? signalWarm : signalGreen
-        context.fillStyle = trace.warm ? signalWarm : signalGreen
-        context.fillRect(x - 2, y - 2, 4, 4)
-        context.restore()
+        positions.forEach(({ x, y }) => {
+          const distance = Math.hypot(x - eased.x, y - eased.y)
+          if (distance > 235) return
+          context.beginPath()
+          context.moveTo(eased.x, eased.y)
+          context.lineTo(x, y)
+          context.lineWidth = 0.8
+          context.strokeStyle = `rgba(${accentLine}, ${(1 - distance / 235) * 0.24})`
+          context.stroke()
+        })
+      }
+
+      positions.forEach(({ x, y, node }) => {
+        context.beginPath()
+        context.arc(x, y, node.size, 0, Math.PI * 2)
+        context.fillStyle = node.accent
+          ? `rgba(${accentLine}, ${isDark ? 0.55 : 0.48})`
+          : `rgba(${baseLine}, ${isDark ? 0.34 : 0.28})`
+        context.fill()
+
+        if (node.accent) {
+          context.beginPath()
+          context.arc(x, y, node.size + 4.5, 0, Math.PI * 2)
+          context.strokeStyle = `rgba(${accentLine}, ${isDark ? 0.11 : 0.09})`
+          context.lineWidth = 1
+          context.stroke()
+        }
       })
 
-      animationFrame = window.requestAnimationFrame(draw)
+      if (!reducedMotion) frame = window.requestAnimationFrame(render)
     }
 
     resize()
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
     window.addEventListener("resize", resize)
-    window.addEventListener("scroll", handleScroll, { passive: true })
     window.addEventListener("pointermove", handlePointerMove, { passive: true })
     document.documentElement.addEventListener("pointerleave", handlePointerLeave)
-    animationFrame = window.requestAnimationFrame(draw)
+    frame = window.requestAnimationFrame(render)
 
     return () => {
-      window.cancelAnimationFrame(animationFrame)
+      window.cancelAnimationFrame(frame)
       themeObserver.disconnect()
       window.removeEventListener("resize", resize)
-      window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("pointermove", handlePointerMove)
       document.documentElement.removeEventListener("pointerleave", handlePointerLeave)
     }
@@ -235,9 +180,10 @@ export default function BackgroundPattern() {
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-background" aria-hidden="true">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,hsl(var(--card)),transparent_34%),linear-gradient(145deg,hsl(var(--background)),hsl(39_42%_88%))] dark:bg-[radial-gradient(circle_at_18%_8%,hsl(var(--card)),transparent_34%),linear-gradient(145deg,hsl(var(--background)),hsl(196_17%_12%))]" />
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,hsl(var(--background)/0.12),hsl(var(--background)/0.34))]" />
+      <div className="absolute inset-0 opacity-[0.3] dark:opacity-[0.1] [background-image:radial-gradient(hsl(var(--foreground)/0.2)_0.55px,transparent_0.55px)] [background-size:20px_20px]" />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-90" />
+      <div className="absolute -left-48 -top-48 h-[34rem] w-[34rem] rounded-full bg-primary/[0.04] blur-[120px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,hsl(var(--background)/0.08),hsl(var(--background)/0.48)_42%,hsl(var(--background)/0.78))]" />
     </div>
   )
 }

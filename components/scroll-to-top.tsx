@@ -28,12 +28,12 @@ export default function ScrollToTop() {
   }, [])
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-5 right-5 z-50">
       {isVisible && (
         <Button
           onClick={scrollToTop}
           size="icon"
-          className="circuit-button h-11 w-11 shadow-lg"
+          className="circuit-button h-11 w-11 rounded-xl shadow-lg"
           aria-label="Scroll to top"
         >
           <ArrowUp className="h-5 w-5" />

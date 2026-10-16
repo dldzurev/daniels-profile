@@ -18,6 +18,8 @@ type Project = {
   devpostUrl?: string
   docsUrl?: string
   mediaUrl?: string
+  mediaAlt?: string
+  mediaFit?: "cover" | "contain"
   comingSoon?: boolean
 }
 
@@ -42,12 +44,20 @@ const projects: Record<string, Project> = {
   },
   "fpga-mvm-accelerator": {
     title: "FPGA MVM Accelerator",
-    category: "Digital Hardware",
+    category: "Digital Hardware · ECE 327",
     description:
-      "A parameterized SystemVerilog matrix-vector multiplication engine designed for high-throughput FPGA execution.",
-    details: [],
-    skills: ["SystemVerilog", "FPGA", "Vivado", "Pipelining", "FSM", "350+ MHz"],
-    comingSoon: true,
+      "An ECE 327 Lab 4 accelerator that computes y = A × x by streaming 8-element words through configurable parallel output lanes, with timing verified above 350 MHz in Vivado.",
+    details: [
+      "Implemented the core datapath for a parameterized matrix-vector multiplication engine that produces several output-vector elements in parallel.",
+      "Partitioned matrix rows round-robin across per-lane memories while a shared vector memory broadcasts each matching 8-element word to every compute lane.",
+      "Built each lane around eight parallel multipliers, a pipelined adder-tree reduction, and an accumulator so rows wider than eight elements can be processed as a stream of partial dot products.",
+      "Designed the control FSM to sequence vector and matrix addresses and drive first/last accumulator timing, then verified the integrated engine and 350+ MHz timing in Vivado.",
+    ],
+    skills: ["SystemVerilog", "Vivado", "FPGA", "Pipelining", "Memory Banking", "Control FSM", "350+ MHz"],
+    mediaUrl: "/fpga-mvm-architecture.png",
+    mediaAlt:
+      "Architecture diagram of the FPGA matrix-vector engine with shared vector memory, banked matrix memories, parallel dot-product lanes, adder trees, and accumulators",
+    mediaFit: "contain",
   },
   conductor: {
     title: "Conductor",
@@ -93,12 +103,19 @@ const projects: Record<string, Project> = {
     mediaUrl: "/demo.mp4",
   },
   "context-co": {
-    title: "Context Co",
+    title: "Context Companion",
     category: "Product / Software",
-    description: "Project page and supporting materials are being prepared.",
-    details: [],
-    skills: [],
-    comingSoon: true,
+    description:
+      "A context-aware AI agent for VS Code that brings codebase knowledge, Slack, Jira, and Confluence into one unified developer workflow.",
+    details: [
+      "Built a context-aware VS Code extension with a custom chat interface that explores the codebase and retrieves relevant information from Slack, Jira, and Confluence.",
+      "Architected an MCP-based integration layer that coordinates the local file system, external APIs, and a FastAPI backend for modular, scalable tool access.",
+      "Implemented a Review & Apply workflow using VS Code's native diff view so developers can inspect and approve AI-generated code changes before applying them.",
+    ],
+    skills: ["TypeScript", "Python", "FastAPI", "Gemini", "MCP", "VS Code API", "Slack", "Jira", "Confluence"],
+    githubUrl: "https://github.com/dldzurev/Context-Company-NexHacks26-",
+    devpostUrl: "https://devpost.com/software/contextco-9dau63",
+    mediaUrl: "https://player.vimeo.com/video/1155734814?byline=0&portrait=0&title=0",
   },
   "cpp-data-analysis": {
     title: "C++ Data Analysis Tool",
@@ -169,7 +186,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden py-10 md:py-16">
+    <main className="relative min-h-screen overflow-hidden pb-20 pt-28 md:pb-28 md:pt-32">
       <div className="fixed inset-0 -z-20">
         <BackgroundPattern />
       </div>
@@ -183,11 +200,11 @@ export default function ProjectDetail() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className="mb-12 max-w-4xl"
+          className="mb-14 max-w-4xl"
         >
           <p className="circuit-kicker">{project.category}</p>
           <h1 className="section-heading mb-6 text-5xl md:text-7xl">{project.title}</h1>
-          <p className="max-w-3xl border-l border-primary/40 pl-5 text-xl leading-relaxed text-muted-foreground">
+          <p className="max-w-3xl text-xl leading-relaxed tracking-[-0.015em] text-muted-foreground">
             {project.description}
           </p>
         </motion.header>
@@ -202,11 +219,11 @@ export default function ProjectDetail() {
             <div className="absolute inset-x-0 top-1/2 h-px bg-primary/15" aria-hidden="true" />
             <div className="absolute bottom-0 left-1/3 top-0 w-px bg-primary/10" aria-hidden="true" />
             <div className="relative m-auto max-w-2xl px-6 py-16 text-center md:px-12">
-              <div className="circuit-icon mx-auto mb-7 flex h-14 w-14 items-center justify-center">
+              <div className="circuit-icon mx-auto mb-7 flex h-14 w-14 items-center justify-center rounded-xl">
                 <Clock3 className="h-6 w-6" strokeWidth={1.5} />
               </div>
               <p className="circuit-kicker">Documentation in progress</p>
-              <h2 className="mb-4 text-3xl font-semibold text-foreground md:text-4xl">Project page to be updated</h2>
+              <h2 className="mb-4 text-3xl font-semibold tracking-[-0.035em] text-foreground md:text-4xl">Project page to be updated</h2>
               <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground">
                 A complete write-up, architecture breakdown, and demo will be added here soon.
               </p>
@@ -231,13 +248,13 @@ export default function ProjectDetail() {
             <div className="space-y-7">
             {project.mediaUrl && (
               <div className="sharp-card overflow-hidden p-2">
-                {project.mediaUrl.startsWith("https://www.youtube.com/embed") ? (
+                {project.mediaUrl.startsWith("https://www.youtube.com/embed") || project.mediaUrl.startsWith("https://player.vimeo.com/video") ? (
                   <div className="relative aspect-video w-full overflow-hidden">
                     <iframe
                       src={project.mediaUrl}
                       title={project.title}
                       className="absolute inset-0 h-full w-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
                   </div>
@@ -246,20 +263,24 @@ export default function ProjectDetail() {
                     <video src={project.mediaUrl} controls preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
                   </div>
                 ) : (
-                  <img src={project.mediaUrl} alt={project.title} className="aspect-video w-full object-cover" />
+                  <img
+                    src={project.mediaUrl}
+                    alt={project.mediaAlt ?? project.title}
+                    className={`aspect-video w-full ${project.mediaFit === "contain" ? "bg-[#fbfaf7] object-contain" : "object-cover"}`}
+                  />
                 )}
               </div>
             )}
 
             <section className="sharp-card p-6 md:p-8">
               <div className="mb-7 flex items-center justify-between border-b border-border/70 pb-5">
-                <h2 className="text-2xl font-semibold text-foreground">Build Details</h2>
+                <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">Build Details</h2>
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{project.details.length} highlights</span>
               </div>
               <ul className="space-y-6">
                 {project.details.map((detail, index) => (
                   <li key={detail} className="grid grid-cols-[32px_1fr] gap-4 leading-relaxed">
-                    <span className="flex h-8 w-8 items-center justify-center border border-primary/30 bg-primary/5 text-xs font-semibold text-primary">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 font-mono text-[10px] font-semibold text-primary">
                       0{index + 1}
                     </span>
                     <span className="pt-1 text-foreground/90">{detail}</span>

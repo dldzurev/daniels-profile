@@ -91,18 +91,18 @@ export default function Experience() {
           transition={{ duration: 0.65 }}
           className="mx-auto max-w-6xl"
         >
-          <div className="mb-12 grid gap-5 md:grid-cols-[0.85fr_1.15fr] md:items-end">
+          <div className="mb-14 grid gap-7 md:grid-cols-[0.85fr_1.15fr] md:items-end">
             <div>
               <p className="circuit-kicker">Where I have built</p>
               <h2 className="section-heading mb-0">Professional Experience</h2>
             </div>
-            <p className="max-w-xl border-l border-primary/35 pl-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="max-w-xl text-lg leading-relaxed tracking-[-0.015em] text-muted-foreground">
               Five roles spanning embedded systems, AI infrastructure, field coordination, and technical education.
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-10">
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:self-start" role="tablist" aria-label="Professional roles">
+          <div className="grid gap-6 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-8">
+            <div className="grid gap-1 rounded-2xl border border-border/80 bg-card/70 p-2 shadow-sm backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-1 lg:self-start" role="tablist" aria-label="Professional roles">
               {experiences.map((experience, index) => {
                 const active = index === activeIndex
 
@@ -113,20 +113,20 @@ export default function Experience() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveIndex(index)}
-                    className={`group relative min-h-28 border p-4 text-left transition-all duration-300 lg:min-h-32 ${
+                    className={`group relative min-h-24 rounded-xl border p-4 text-left transition-all duration-300 lg:min-h-[112px] ${
                       active
-                        ? "border-primary/55 bg-primary text-primary-foreground shadow-[0_16px_50px_hsl(var(--primary)/0.14)]"
-                        : "border-border/70 bg-card/55 text-foreground backdrop-blur-sm hover:border-primary/40 hover:bg-card/80"
+                        ? "border-foreground bg-foreground text-background shadow-[0_12px_35px_hsl(40_8%_12%/0.14)]"
+                        : "border-transparent bg-transparent text-foreground hover:border-border hover:bg-muted/80"
                     }`}
                   >
                     <div className="mb-5 flex items-center justify-between gap-3">
-                      <span className={`text-xs font-semibold ${active ? "text-primary-foreground/65" : "text-muted-foreground"}`}>
+                      <span className={`font-mono text-[10px] ${active ? "text-background/55" : "text-muted-foreground"}`}>
                         0{index + 1}
                       </span>
-                      <ArrowUpRight className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${active ? "text-primary-foreground" : "text-primary"}`} />
+                      <ArrowUpRight className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${active ? "text-background" : "text-muted-foreground"}`} />
                     </div>
                     <div className="text-base font-semibold">{experience.company}</div>
-                    <div className={`mt-1 text-xs leading-relaxed ${active ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                    <div className={`mt-1 text-xs leading-relaxed ${active ? "text-background/65" : "text-muted-foreground"}`}>
                       {experience.period}
                     </div>
                   </button>
@@ -135,7 +135,6 @@ export default function Experience() {
             </div>
 
             <div className="relative">
-              <div className="absolute -left-10 top-16 hidden h-px w-10 bg-primary/35 lg:block" aria-hidden="true" />
               <AnimatePresence mode="wait">
                 <motion.article
                   key={activeExperience.company}
@@ -143,17 +142,17 @@ export default function Experience() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -12 }}
                   transition={{ duration: 0.32, ease: "easeOut" }}
-                  className="sharp-card p-5 md:p-8"
+                  className="sharp-card p-5 md:p-8 lg:p-10"
                   role="tabpanel"
                 >
-                  <div className="mb-8 grid gap-5 border-b border-border/70 pb-7 md:grid-cols-[1fr_auto] md:items-start">
+                  <div className="mb-8 grid gap-5 border-b border-border/70 pb-8 md:grid-cols-[1fr_auto] md:items-start">
                     <div>
-                      <p className="circuit-kicker mb-2">{activeExperience.company}</p>
-                      <h3 className="text-3xl font-semibold leading-tight text-foreground md:text-4xl">{activeExperience.title}</h3>
+                      <p className="circuit-kicker mb-3">{activeExperience.company}</p>
+                      <h3 className="text-3xl font-semibold leading-tight tracking-[-0.035em] text-foreground md:text-4xl">{activeExperience.title}</h3>
                       <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{activeExperience.summary}</p>
                     </div>
                     <div className="text-left text-sm md:text-right">
-                      <p className="font-semibold text-primary">{activeExperience.period}</p>
+                      <p className="font-mono text-xs font-semibold text-primary">{activeExperience.period}</p>
                       <p className="mt-1 text-muted-foreground">{activeExperience.location}</p>
                     </div>
                   </div>

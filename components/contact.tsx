@@ -95,21 +95,22 @@ export default function Contact() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
-          className="max-w-5xl mx-auto"
+          className="mx-auto max-w-6xl"
         >
-          <motion.h2 variants={itemVariants} className="section-heading">
-            Get In Touch
-          </motion.h2>
+          <motion.div variants={itemVariants} className="mb-12">
+            <p className="circuit-kicker">Start a conversation</p>
+            <h2 className="section-heading mb-0">Get In Touch</h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-[0.82fr_1.18fr] md:gap-8">
             <motion.div variants={itemVariants}>
               <Card className="sharp-card h-full">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">Contact Information</CardTitle>
+                <CardHeader className="p-6 pb-4 md:p-8 md:pb-5">
+                  <CardTitle className="text-2xl font-semibold tracking-[-0.03em] text-foreground">Contact Information</CardTitle>
                   <CardDescription>Feel free to reach out through any of these channels</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center">
+                <CardContent className="space-y-1 px-3 pb-4 md:px-5 md:pb-6">
+                  <div className="flex items-center rounded-xl px-3 py-3 transition-colors hover:bg-muted/70">
                     <div className="circuit-icon mr-4 p-2">
                       <Mail className="h-5 w-5 text-primary" />
                     </div>
@@ -124,7 +125,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center rounded-xl px-3 py-3 transition-colors hover:bg-muted/70">
                     <div className="circuit-icon mr-4 p-2">
                       <Linkedin className="h-5 w-5 text-primary" />
                     </div>
@@ -142,7 +143,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center rounded-xl px-3 py-3 transition-colors hover:bg-muted/70">
                     <div className="circuit-icon mr-4 p-2">
                       <Github className="h-5 w-5 text-primary" />
                     </div>
@@ -159,7 +160,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-start rounded-xl px-3 py-3 transition-colors hover:bg-muted/70">
                     <div className="circuit-icon mr-4 p-2">
                       <MapPin className="h-5 w-5 text-primary" />
                     </div>
@@ -176,11 +177,11 @@ export default function Contact() {
 
             <motion.div variants={itemVariants}>
               <Card className="sharp-card h-full">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">Send Me a Message</CardTitle>
+                <CardHeader className="p-6 pb-4 md:p-8 md:pb-5">
+                  <CardTitle className="text-2xl font-semibold tracking-[-0.03em] text-foreground">Send Me a Message</CardTitle>
                   <CardDescription>I'll get back to you as soon as possible</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-6 pb-6 md:px-8 md:pb-8">
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
@@ -194,7 +195,7 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="rounded-md border-border/80 bg-card/70"
+                          className="h-11 rounded-lg border-border/80 bg-background/70 shadow-none focus-visible:ring-primary/25"
                         />
                       </div>
                       <div className="space-y-2">
@@ -209,7 +210,7 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="rounded-md border-border/80 bg-card/70"
+                          className="h-11 rounded-lg border-border/80 bg-background/70 shadow-none focus-visible:ring-primary/25"
                         />
                       </div>
                     </div>
@@ -225,7 +226,7 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="rounded-md border-border/80 bg-card/70"
+                        className="h-11 rounded-lg border-border/80 bg-background/70 shadow-none focus-visible:ring-primary/25"
                       />
                     </div>
 
@@ -240,11 +241,11 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        className="min-h-[120px] rounded-md border-border/80 bg-card/70"
+                        className="min-h-[130px] rounded-lg border-border/80 bg-background/70 shadow-none focus-visible:ring-primary/25"
                       />
                     </div>
 
-                    <Button type="submit" className="circuit-button w-full" disabled={isSubmitting}>
+                    <Button type="submit" className="circuit-button h-11 w-full" disabled={isSubmitting}>
                       {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>

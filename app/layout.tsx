@@ -1,6 +1,7 @@
 import type React from "react"
 import "@/app/globals.css" 
 import { ThemeProvider } from "@/components/theme-provider"
+import SiteChrome from "@/components/site-chrome"
 
 export const metadata = {
   title: "Daniel Dzurevych | Computer Engineer",
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <SiteChrome />
           {children}
         </ThemeProvider>
       </body>

@@ -43,23 +43,23 @@ export default function Skills() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.65 }}
-          className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.68fr_1.32fr]"
+          className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.66fr_1.34fr]"
         >
           <div className="lg:sticky lg:top-24 lg:self-start">
             <p className="circuit-kicker">Engineering toolkit</p>
             <h2 className="section-heading">Skills & Technologies</h2>
-            <p className="max-w-sm border-l border-primary/35 pl-5 leading-relaxed text-muted-foreground">
+            <p className="max-w-sm leading-relaxed text-muted-foreground">
               Low-level software, networking, concurrency, and hardware systems built to work together.
             </p>
           </div>
 
-          <Tabs defaultValue="languages" className="sharp-card p-4 sm:p-6">
-            <TabsList className="mb-7 grid h-auto grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
+          <Tabs defaultValue="languages" className="sharp-card p-4 sm:p-6 md:p-8">
+            <TabsList className="mb-8 grid h-auto grid-cols-2 gap-1 rounded-xl bg-muted/80 p-1 sm:grid-cols-4">
               {skillGroups.map(({ id, label, icon: Icon }) => (
                 <TabsTrigger
                   key={id}
                   value={id}
-                  className="min-h-20 flex-col gap-2 border border-border/70 bg-background/45 px-3 py-3 text-xs data-[state=active]:border-primary/50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  className="min-h-20 flex-col gap-2 rounded-lg border border-transparent bg-transparent px-3 py-3 text-xs shadow-none data-[state=active]:border-border data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                 >
                   <Icon className="h-5 w-5" strokeWidth={1.6} />
                   <span className="text-center leading-tight">{label}</span>
@@ -84,7 +84,7 @@ export default function Skills() {
                       transition={{ duration: 0.28, delay: index * 0.025 }}
                       className="circuit-chip relative flex min-h-14 items-center px-4 text-sm font-medium"
                     >
-                      <span className="mr-3 h-1.5 w-1.5 shrink-0 bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]" />
+                      <span className="mr-3 h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]" />
                       {skill}
                     </motion.div>
                   ))}

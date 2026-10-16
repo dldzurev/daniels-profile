@@ -66,6 +66,16 @@ const courseTerms = [
       ["ECON 101", "Introduction to Microeconomics"],
     ],
   },
+  {
+    term: "3B",
+    courses: [
+      ["ECE 320", "Computer Architecture"],
+      ["ECE 457B", "Fundamentals of Computational Intelligence"],
+      ["ECE 351", "Compilers"],
+      ["ECE 358", "Computer Networks"],
+      ["GER 101", "Elementary German 1"],
+    ],
+  },
 ]
 
 export default function Education() {
@@ -81,7 +91,7 @@ export default function Education() {
           transition={{ duration: 0.65 }}
           className="mx-auto max-w-6xl"
         >
-          <div className="mb-10 flex items-end gap-6">
+          <div className="mb-12 flex items-end gap-6">
             <div>
               <p className="circuit-kicker">Academic foundation</p>
               <h2 className="section-heading mb-0">Education</h2>
@@ -89,14 +99,15 @@ export default function Education() {
             <div className="mb-2 hidden h-px flex-1 bg-primary/25 md:block" />
           </div>
 
-          <div className="border-y border-primary/25 bg-background/40 backdrop-blur-sm">
-            <div className="grid gap-8 px-1 py-9 md:grid-cols-[1.25fr_0.75fr] md:items-center md:px-8 md:py-12">
+          <div className="sharp-card">
+            <div className="h-24 border-b border-border bg-[linear-gradient(125deg,hsl(var(--primary)/0.16),hsl(var(--muted)),hsl(var(--card)))] md:h-32" />
+            <div className="grid gap-8 px-5 py-9 md:grid-cols-[1.25fr_0.75fr] md:items-center md:px-10 md:py-12">
               <div className="flex items-start gap-5">
                 <div className="circuit-icon flex h-14 w-14 shrink-0 items-center justify-center">
                   <GraduationCap className="h-7 w-7" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h3 className="text-3xl font-semibold leading-tight text-foreground md:text-4xl">University of Waterloo</h3>
+                  <h3 className="text-3xl font-semibold leading-tight tracking-[-0.04em] text-foreground md:text-4xl">University of Waterloo</h3>
                   <p className="mt-2 text-lg font-medium text-primary">B.A.Sc. Computer Engineering</p>
                   <p className="mt-1 text-sm text-muted-foreground">Waterloo, ON | 2023 - Expected January 2028</p>
                 </div>
@@ -107,25 +118,25 @@ export default function Education() {
                   <Trophy className="h-4 w-4 text-accent" />
                   Scholarships
                 </div>
-                <p className="text-5xl font-semibold text-primary md:text-6xl">$15,000</p>
+                <p className="text-5xl font-semibold tracking-[-0.05em] text-foreground md:text-6xl">$15,000</p>
               </div>
             </div>
 
-            <div className="border-t border-border/70 px-1 py-7 md:px-8">
+            <div className="border-t border-border/70 px-5 py-8 md:px-10">
               <div className="mb-6 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-primary" />
                   <h3 className="text-lg font-semibold text-foreground">Courses Taken</h3>
                 </div>
-                <p className="text-sm text-muted-foreground">Core sequence through 3A plus ECON 101.</p>
+                <p className="text-sm text-muted-foreground">Core sequence through 3B plus ECON 101 and GER 101.</p>
               </div>
-              <Tabs defaultValue="3A" className="w-full">
-                <TabsList className="grid h-auto w-full grid-cols-5 rounded-none border border-border/70 bg-background/35 p-1">
+              <Tabs defaultValue="3B" className="w-full">
+                <TabsList className="grid h-auto w-full grid-cols-6 rounded-xl border border-border/70 bg-muted/60 p-1">
                   {courseTerms.map(({ term }) => (
                     <TabsTrigger
                       key={term}
                       value={term}
-                      className="rounded-none px-2 py-2.5 text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground sm:text-sm"
+                      className="rounded-lg px-2 py-2.5 text-xs shadow-none data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm sm:text-sm"
                     >
                       {term}
                     </TabsTrigger>
@@ -133,9 +144,9 @@ export default function Education() {
                 </TabsList>
                 {courseTerms.map(({ term, courses }) => (
                   <TabsContent key={term} value={term} className="mt-5">
-                    <div className="grid gap-px overflow-hidden border border-border/70 bg-border/70 sm:grid-cols-2">
+                    <div className="grid gap-px overflow-hidden rounded-xl border border-border/70 bg-border/70 sm:grid-cols-2">
                       {courses.map(([code, title]) => (
-                        <div key={code} className="flex min-h-16 items-start gap-3 bg-background/80 px-4 py-3 backdrop-blur-sm">
+                        <div key={code} className="flex min-h-16 items-start gap-3 bg-card/95 px-4 py-3 transition-colors hover:bg-muted/65">
                           <Badge className="circuit-chip mt-0.5 shrink-0 px-2.5 py-1 text-xs">{code}</Badge>
                           <span className="text-sm leading-relaxed text-foreground/85">{title}</span>
                         </div>

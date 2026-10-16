@@ -53,15 +53,14 @@ export default function StatsBanner() {
           variants={containerVariants}
           className="max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-2 border-y border-primary/25 bg-background/30 backdrop-blur-sm lg:grid-cols-4">
+          <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-border/80 bg-card/85 shadow-sm backdrop-blur-xl lg:grid-cols-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="relative px-4 py-8 text-center md:py-11 lg:border-l lg:first:border-l-0"
+                className="relative border-border/75 px-4 py-8 text-left odd:border-r lg:border-l lg:border-r-0 lg:first:border-l-0 md:py-11"
               >
-                <span className="absolute right-0 top-0 h-2 w-2 translate-x-1/2 -translate-y-1/2 border border-primary bg-background" />
-                <p className="mb-2 text-4xl font-semibold text-primary md:text-5xl">{stat.value}</p>
+                <p className="mb-2 text-4xl font-semibold tracking-[-0.05em] text-foreground md:text-5xl">{stat.value}</p>
                 <p className="text-sm text-muted-foreground md:text-base">{stat.label}</p>
               </motion.div>
             ))}
